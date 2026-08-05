@@ -8,6 +8,13 @@ import LogoImage from './secret-messages-logo.png';
 import MessagesContext from './contexts/MessagesContext';
 import AccountContext from './contexts/AccountContext';
 
+import '@fontsource/roboto/300.css';
+import '@fontsource/roboto/400.css';
+import '@fontsource/roboto/500.css';
+import '@fontsource/roboto/700.css';
+
+import FirstComponent from './components/FirstComponent';
+
 // EXERCISE 4.1
 const hostURL = ((process.env.NODE_ENV === "production")
                 ? "https://cfa-summer26-l10-weihua-api.onrender.com"
@@ -218,6 +225,7 @@ function App(props) {
       <MessagesContext.Provider value={{messages, newMessage, getMessages, updateMessage, deleteMessage}}>
         <header>
           <nav id="branding">
+            <FirstComponent />
             <img id="logo" src={LogoImage} alt="Secret Messages App" />
             <h1 id="title">Secret Messages</h1>
           </nav>
