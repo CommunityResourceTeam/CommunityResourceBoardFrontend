@@ -15,6 +15,7 @@ import '@fontsource/roboto/700.css';
 
 import CRBDatePicker from './components/CRBDatePicker';
 import CRBTagSelect from './components/CRBTagSelect';
+import CRBTagPicker from './components/CRBTagPicker';
 
 // EXERCISE 4.1
 const hostURL = ((process.env.NODE_ENV === "production")
@@ -228,6 +229,7 @@ function App(props) {
           <nav id="branding">
             <CRBDatePicker />
             <CRBTagSelect />
+            <CRBTagPicker />
             <img id="logo" src={LogoImage} alt="Secret Messages App" />
             <h1 id="title">Secret Messages</h1>
           </nav>
