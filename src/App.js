@@ -13,7 +13,7 @@ import '@fontsource/roboto/400.css';
 import '@fontsource/roboto/500.css';
 import '@fontsource/roboto/700.css';
 
-import FirstComponent from './components/FirstComponent';
+import CRBDatePicker from './components/CRBDatePicker';
 
 // EXERCISE 4.1
 const hostURL = ((process.env.NODE_ENV === "production")
