@@ -20,6 +20,7 @@ import CRBTagSelect from './components/CRBTagSelect';
 import CRBTagPicker from './components/CRBTagPicker';
 import CRBDateTimePicker from './components/CRBDateTimePicker';
 import CRBTimePicker from './components/CRBTimePicker';
+import CRBProfileUpload from './components/CRBProfileUpload';
 import CRBPopUpBox from './components/CRBPopUpBox';
 import CRBMenu from './components/CRBMenu';
 import CRBPostCondensed from './components/CRBPostCondensed';
@@ -243,6 +244,7 @@ function App(props) {
             <CRBSlider />
             <img id="logo" src={LogoImage} alt="Secret Messages App" />
             <h1 id="title">Secret Messages</h1>
+            <CRBProfileUpload />
             <CRBProfile />
           </nav>
           <AccountManagement />
