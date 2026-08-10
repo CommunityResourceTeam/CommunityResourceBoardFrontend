@@ -13,11 +13,13 @@ import '@fontsource/roboto/400.css';
 import '@fontsource/roboto/500.css';
 import '@fontsource/roboto/700.css';
 
+// Proxy Component Imports
 import CRBDatePicker from './components/CRBDatePicker';
 import CRBTagSelect from './components/CRBTagSelect';
 import CRBTagPicker from './components/CRBTagPicker';
 import CRBDateTimePicker from './components/CRBDateTimePicker';
 import CRBTimePicker from './components/CRBTimePicker';
+import CRBPostCondensed from './components/CRBPostCondensed';
 
 // EXERCISE 4.1
 const hostURL = ((process.env.NODE_ENV === "production")
@@ -238,6 +240,7 @@ function App(props) {
           <AccountManagement />
         </header>
         <div id="main">
+          <CRBPostCondensed />
           <CRBDateTimePicker />
           <CRBTimePicker />
           <MessagesDisplay secrets={props.secrets} />
