@@ -19,6 +19,7 @@ import CRBTagSelect from './components/CRBTagSelect';
 import CRBTagPicker from './components/CRBTagPicker';
 import CRBDateTimePicker from './components/CRBDateTimePicker';
 import CRBTimePicker from './components/CRBTimePicker';
+import CRBMenu from './components/CRBMenu';
 import CRBPostCondensed from './components/CRBPostCondensed';
 
 // EXERCISE 4.1
@@ -243,6 +244,7 @@ function App(props) {
           <CRBPostCondensed />
           <CRBDateTimePicker />
           <CRBTimePicker />
+          <CRBMenu />
           <MessagesDisplay secrets={props.secrets} />
           <MessageForm />
         </div>
