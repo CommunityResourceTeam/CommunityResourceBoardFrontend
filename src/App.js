@@ -16,6 +16,7 @@ import '@fontsource/roboto/700.css';
 import CRBDatePicker from './components/CRBDatePicker';
 import CRBDateTimePicker from './components/CRBDateTimePicker';
 import CRBTimePicker from './components/CRBTimePicker';
+import CRBMenu from './components/CRBMenu';
 
 // EXERCISE 4.1
 const hostURL = ((process.env.NODE_ENV === "production")
@@ -236,6 +237,7 @@ function App(props) {
         <div id="main">
           <CRBDateTimePicker />
           <CRBTimePicker />
+          <CRBMenu />
           <MessagesDisplay secrets={props.secrets} />
           <MessageForm />
         </div>
