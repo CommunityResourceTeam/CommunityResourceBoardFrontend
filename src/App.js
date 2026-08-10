@@ -20,6 +20,7 @@ import CRBTagPicker from './components/CRBTagPicker';
 import CRBDateTimePicker from './components/CRBDateTimePicker';
 import CRBTimePicker from './components/CRBTimePicker';
 import CRBPostCondensed from './components/CRBPostCondensed';
+import CRBMoreMenu from './components/CRBMoreMenu';
 
 // EXERCISE 4.1
 const hostURL = ((process.env.NODE_ENV === "production")
@@ -245,6 +246,7 @@ function App(props) {
           <CRBTimePicker />
           <MessagesDisplay secrets={props.secrets} />
           <MessageForm />
+          <CRBMoreMenu />
         </div>
         <footer>
             <p>&copy; 2024 Secret Messages</p>
