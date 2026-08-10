@@ -20,6 +20,7 @@ import CRBTagPicker from './components/CRBTagPicker';
 import CRBDateTimePicker from './components/CRBDateTimePicker';
 import CRBTimePicker from './components/CRBTimePicker';
 import CRBPostCondensed from './components/CRBPostCondensed';
+import CRBAccountCondensed from './components/CRBAccountMenu';
 
 // EXERCISE 4.1
 const hostURL = ((process.env.NODE_ENV === "production")
@@ -238,6 +239,7 @@ function App(props) {
             <h1 id="title">Secret Messages</h1>
           </nav>
           <AccountManagement />
+          <CRBAccountCondensed />
         </header>
         <div id="main">
           <CRBPostCondensed />
