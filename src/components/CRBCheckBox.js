@@ -1,7 +1,7 @@
 import * as React from 'react';
 import Checkbox from '@mui/material/Checkbox';
 
-export default function ControlledCheckbox() {
+export default function CRBCheckBox() {
   const [checked, setChecked] = React.useState(true);
 
   const handleChange = (event) => {
