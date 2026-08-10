@@ -20,6 +20,7 @@ import CRBTagPicker from './components/CRBTagPicker';
 import CRBDateTimePicker from './components/CRBDateTimePicker';
 import CRBTimePicker from './components/CRBTimePicker';
 import CRBPostCondensed from './components/CRBPostCondensed';
+import CRBCheckBox from './components/CRBCheckBox';
 
 // EXERCISE 4.1
 const hostURL = ((process.env.NODE_ENV === "production")
@@ -236,6 +237,7 @@ function App(props) {
             <CRBTagPicker />
             <img id="logo" src={LogoImage} alt="Secret Messages App" />
             <h1 id="title">Secret Messages</h1>
+            <CRBCheckBox />
           </nav>
           <AccountManagement />
         </header>
