@@ -26,6 +26,7 @@ import CRBMenu from './components/CRBMenu';
 import CRBPostCondensed from './components/CRBPostCondensed';
 import CRBProfile from './components/CRBProfile';
 import CRBDialog from './components/CRBDialog';
+import CRBReportMenu from './components/CRBReportMenu';
 
 // EXERCISE 4.1
 const hostURL = ((process.env.NODE_ENV === "production")
@@ -246,6 +247,7 @@ function App(props) {
             <h1 id="title">Secret Messages</h1>
             <CRBProfileUpload />
             <CRBProfile />
+            <CRBReportMenu />
           </nav>
           <AccountManagement />
         </header>
