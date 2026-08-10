@@ -23,6 +23,7 @@ import CRBTimePicker from './components/CRBTimePicker';
 import CRBPopUpBox from './components/CRBPopUpBox';
 import CRBMenu from './components/CRBMenu';
 import CRBPostCondensed from './components/CRBPostCondensed';
+import CRBDialog from './components/CRBDialog';
 
 // EXERCISE 4.1
 const hostURL = ((process.env.NODE_ENV === "production")
@@ -236,6 +237,7 @@ function App(props) {
           <nav id="branding">
             <CRBDatePicker />
             <CRBTagSelect />
+            <CRBDialog />
             <CRBTagPicker />
             <CRBSlider />
             <img id="logo" src={LogoImage} alt="Secret Messages App" />
