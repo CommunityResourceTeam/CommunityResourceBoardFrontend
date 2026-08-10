@@ -18,6 +18,7 @@ import CRBTagSelect from './components/CRBTagSelect';
 import CRBTagPicker from './components/CRBTagPicker';
 import CRBDateTimePicker from './components/CRBDateTimePicker';
 import CRBTimePicker from './components/CRBTimePicker';
+import CRBPopUpBox from './components/CRBPopUpBox';
 
 // EXERCISE 4.1
 const hostURL = ((process.env.NODE_ENV === "production")
@@ -238,6 +239,7 @@ function App(props) {
           <AccountManagement />
         </header>
         <div id="main">
+          <CRBPopUpBox />
           <CRBDateTimePicker />
           <CRBTimePicker />
           <MessagesDisplay secrets={props.secrets} />
