@@ -2,7 +2,7 @@ import * as React from 'react';
 import Avatar from '@mui/material/Avatar';
 import ButtonBase from '@mui/material/ButtonBase';
 
-export default function UploadAvatars() {
+export default function CRBProfileUpload() {
   const [avatarSrc, setAvatarSrc] = React.useState(undefined);
 
   const handleAvatarChange = (event) => {
