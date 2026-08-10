@@ -14,6 +14,7 @@ import '@fontsource/roboto/500.css';
 import '@fontsource/roboto/700.css';
 
 // Proxy Component Imports
+import CRBSlider from './components/CRBSlider';
 import CRBDatePicker from './components/CRBDatePicker';
 import CRBTagSelect from './components/CRBTagSelect';
 import CRBTagPicker from './components/CRBTagPicker';
@@ -234,6 +235,7 @@ function App(props) {
             <CRBDatePicker />
             <CRBTagSelect />
             <CRBTagPicker />
+            <CRBSlider />
             <img id="logo" src={LogoImage} alt="Secret Messages App" />
             <h1 id="title">Secret Messages</h1>
           </nav>
