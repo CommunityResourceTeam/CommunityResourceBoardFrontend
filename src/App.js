@@ -23,6 +23,7 @@ import CRBTimePicker from './components/CRBTimePicker';
 import CRBPopUpBox from './components/CRBPopUpBox';
 import CRBMenu from './components/CRBMenu';
 import CRBPostCondensed from './components/CRBPostCondensed';
+import CRBProfile from './components/CRBProfile';
 import CRBDialog from './components/CRBDialog';
 
 // EXERCISE 4.1
@@ -242,6 +243,7 @@ function App(props) {
             <CRBSlider />
             <img id="logo" src={LogoImage} alt="Secret Messages App" />
             <h1 id="title">Secret Messages</h1>
+            <CRBProfile />
           </nav>
           <AccountManagement />
         </header>
