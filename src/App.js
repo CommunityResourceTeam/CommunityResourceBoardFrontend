@@ -14,13 +14,17 @@ import '@fontsource/roboto/500.css';
 import '@fontsource/roboto/700.css';
 
 // Proxy Component Imports
+import CRBSlider from './components/CRBSlider';
 import CRBDatePicker from './components/CRBDatePicker';
 import CRBTagSelect from './components/CRBTagSelect';
 import CRBTagPicker from './components/CRBTagPicker';
 import CRBDateTimePicker from './components/CRBDateTimePicker';
 import CRBTimePicker from './components/CRBTimePicker';
+import CRBPopUpBox from './components/CRBPopUpBox';
+import CRBMenu from './components/CRBMenu';
 import CRBPostCondensed from './components/CRBPostCondensed';
 import CRBProfile from './components/CRBProfile';
+import CRBDialog from './components/CRBDialog';
 
 // EXERCISE 4.1
 const hostURL = ((process.env.NODE_ENV === "production")
@@ -234,7 +238,9 @@ function App(props) {
           <nav id="branding">
             <CRBDatePicker />
             <CRBTagSelect />
+            <CRBDialog />
             <CRBTagPicker />
+            <CRBSlider />
             <img id="logo" src={LogoImage} alt="Secret Messages App" />
             <h1 id="title">Secret Messages</h1>
             <CRBProfile />
@@ -242,9 +248,11 @@ function App(props) {
           <AccountManagement />
         </header>
         <div id="main">
+          <CRBPopUpBox />
           <CRBPostCondensed />
           <CRBDateTimePicker />
           <CRBTimePicker />
+          <CRBMenu />
           <MessagesDisplay secrets={props.secrets} />
           <MessageForm />
         </div>
