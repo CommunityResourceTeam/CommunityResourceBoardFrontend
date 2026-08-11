@@ -39,7 +39,7 @@ const ExpandMore = styled((props) => {
   ],
 }));
 
-export default function RecipeReviewCard() {
+export default function CRBPostCondensed() {
   const [expanded, setExpanded] = React.useState(false);
 
   const handleExpandClick = () => {
