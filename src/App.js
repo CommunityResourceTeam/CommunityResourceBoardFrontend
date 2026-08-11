@@ -30,6 +30,7 @@ import CRBAccountCondensed from './components/CRBAccountMenu';
 import CRBCheckBox from './components/CRBCheckBox';
 import CRBProfile from './components/CRBProfile';
 import CRBDialog from './components/CRBDialog';
+import CRBReportMenu from './components/CRBReportMenu';
 
 // EXERCISE 4.1
 const hostURL = ((process.env.NODE_ENV === "production")
@@ -251,6 +252,7 @@ function App(props) {
             <CRBCheckBox />
             <CRBProfileUpload />
             <CRBProfile />
+            <CRBReportMenu />
           </nav>
           <CRBButtonPrimary />
           <CRBButtonSecondary />
