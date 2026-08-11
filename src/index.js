@@ -3,6 +3,7 @@ import ReactDOM from 'react-dom/client';
 import { createBrowserRouter, RouterProvider } from 'react-router-dom';
 import './index.css';
 import App from './pages/App';
+import Setting from './pages/Setting';
 import reportWebVitals from './reportWebVitals';
 
 const router = createBrowserRouter([
@@ -14,6 +15,14 @@ const router = createBrowserRouter([
     path: "/secret",
     element: <App secrets={true} />,
   },
+  {
+    path: "/profile",
+    element: <Setting />
+  },
+  {
+    path: "/setting",
+    element: <Setting startIndex={1} />
+  }
 ]);
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
