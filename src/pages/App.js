@@ -4,7 +4,7 @@ import MessageForm from '../components/MessageForm';
 import AccountManagement from '../components/AccountManagement';
 
 import './App.css';
-import LogoImage from './secret-messages-logo.png';
+import LogoImage from '../secret-messages-logo.png';
 import MessagesContext from '../contexts/MessagesContext';
 import AccountContext from '../contexts/AccountContext';
 
