@@ -1,8 +1,11 @@
-// General Import
+// React Imports
+import * as React from 'react';
+import { useNavigate, useLocation } from "react-router-dom";
+
+// General MUI Import
 import Box from '@mui/material/Box';
 
 // Vertical Tab Imports
-import * as React from 'react';
 import PropTypes from 'prop-types';
 import Tabs from '@mui/material/Tabs';
 import Tab from '@mui/material/Tab';
@@ -78,11 +81,18 @@ function a11yProps(index) {
   };
 }
 
-export default function Setting({ startIndex = 0 }) {
-  const [value, setValue] = React.useState(startIndex);
+export default function Setting() {
+  const routes = ["/profile", "/setting", "/test"];
 
-  const handleChange = (event, newValue) => {
-    setValue(newValue);
+  const navigate = useNavigate();
+  const location = useLocation();
+
+  // URL -> index
+  const value = routes.indexOf(location.pathname);
+
+  // index -> URL
+  const handleChange = (_, newValue) => {
+    navigate(routes[newValue]);
   };
 
   return (
@@ -97,8 +107,9 @@ export default function Setting({ startIndex = 0 }) {
           aria-label="Vertical tabs example"
           sx={{ borderRight: 1, borderColor: 'divider' }}
         >
-          <Tab label="Profile" {...a11yProps(0)} />
-          <Tab label="Setting" {...a11yProps(1)} />
+          <Tab label="Profile" />
+          <Tab label="Setting" />
+          <Tab label="Test" />
         </Tabs>
 
         <TabPanel value={value} index={0}>
@@ -106,6 +117,9 @@ export default function Setting({ startIndex = 0 }) {
         </TabPanel>
         <TabPanel value={value} index={1}>
           <SettingStack />
+        </TabPanel>
+        <TabPanel>
+          Test
         </TabPanel>
       </Box>
   );

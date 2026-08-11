@@ -21,7 +21,11 @@ const router = createBrowserRouter([
   },
   {
     path: "/setting",
-    element: <Setting startIndex={1} />
+    element: <Setting />
+  },
+  {
+    path: "/test",
+    element: <Setting />
   }
 ]);
 
