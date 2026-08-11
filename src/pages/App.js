@@ -32,6 +32,7 @@ import CRBProfile from '../components/CRBProfile';
 import CRBDialog from '../components/CRBDialog';
 import CRBReportMenu from '../components/CRBReportMenu';
 import CRBPasswordInput from '../components/CRBPasswordInput';
+import CRBGmailInput from '../components/CRBGmailInput';
 
 // EXERCISE 4.1
 const hostURL = ((process.env.NODE_ENV === "production")
@@ -255,6 +256,7 @@ function App(props) {
             <CRBProfile />
             <CRBReportMenu />
           </nav>
+          <CRBGmailInput />
           <CRBPasswordInput />
           <CRBButtonPrimary />
           <CRBButtonSecondary />
