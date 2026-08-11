@@ -228,7 +228,7 @@ CustomAutocomplete.propTypes = {
   getOptionLabel: PropTypes.func,
 };
 
-export default function CustomizedHook() {
+export default function CRBTagPicker() {
   return (
     <CustomAutocomplete
       id="customized-hook-demo"

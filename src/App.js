@@ -24,8 +24,13 @@ import CRBProfileUpload from './components/CRBProfileUpload';
 import CRBPopUpBox from './components/CRBPopUpBox';
 import CRBMenu from './components/CRBMenu';
 import CRBPostCondensed from './components/CRBPostCondensed';
+import CRBButtonPrimary from './components/CRBButtonPrimary';
+import CRBButtonSecondary from './components/CRBButtonSecondary';
+import CRBAccountCondensed from './components/CRBAccountMenu';
+import CRBCheckBox from './components/CRBCheckBox';
 import CRBProfile from './components/CRBProfile';
 import CRBDialog from './components/CRBDialog';
+import CRBReportMenu from './components/CRBReportMenu';
 
 // EXERCISE 4.1
 const hostURL = ((process.env.NODE_ENV === "production")
@@ -244,10 +249,15 @@ function App(props) {
             <CRBSlider />
             <img id="logo" src={LogoImage} alt="Secret Messages App" />
             <h1 id="title">Secret Messages</h1>
+            <CRBCheckBox />
             <CRBProfileUpload />
             <CRBProfile />
+            <CRBReportMenu />
           </nav>
+          <CRBButtonPrimary />
+          <CRBButtonSecondary />
           <AccountManagement />
+          <CRBAccountCondensed />
         </header>
         <div id="main">
           <CRBPopUpBox />
