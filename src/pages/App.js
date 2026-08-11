@@ -1,12 +1,12 @@
 import React, { useEffect, useState } from 'react';
-import MessagesDisplay from './components/MessagesDisplay';
-import MessageForm from './components/MessageForm';
-import AccountManagement from './components/AccountManagement';
+import MessagesDisplay from '../components/MessagesDisplay';
+import MessageForm from '../components/MessageForm';
+import AccountManagement from '../components/AccountManagement';
 
 import './App.css';
-import LogoImage from './secret-messages-logo.png';
-import MessagesContext from './contexts/MessagesContext';
-import AccountContext from './contexts/AccountContext';
+import LogoImage from '../secret-messages-logo.png';
+import MessagesContext from '../contexts/MessagesContext';
+import AccountContext from '../contexts/AccountContext';
 
 import '@fontsource/roboto/300.css';
 import '@fontsource/roboto/400.css';
@@ -14,23 +14,23 @@ import '@fontsource/roboto/500.css';
 import '@fontsource/roboto/700.css';
 
 // Proxy Component Imports
-import CRBSlider from './components/CRBSlider';
-import CRBDatePicker from './components/CRBDatePicker';
-import CRBTagSelect from './components/CRBTagSelect';
-import CRBTagPicker from './components/CRBTagPicker';
-import CRBDateTimePicker from './components/CRBDateTimePicker';
-import CRBTimePicker from './components/CRBTimePicker';
-import CRBProfileUpload from './components/CRBProfileUpload';
-import CRBPopUpBox from './components/CRBPopUpBox';
-import CRBMenu from './components/CRBMenu';
-import CRBPostCondensed from './components/CRBPostCondensed';
-import CRBButtonPrimary from './components/CRBButtonPrimary';
-import CRBButtonSecondary from './components/CRBButtonSecondary';
-import CRBAccountCondensed from './components/CRBAccountMenu';
-import CRBCheckBox from './components/CRBCheckBox';
-import CRBProfile from './components/CRBProfile';
-import CRBDialog from './components/CRBDialog';
-import CRBReportMenu from './components/CRBReportMenu';
+import CRBSlider from '../components/CRBSlider';
+import CRBDatePicker from '../components/CRBDatePicker';
+import CRBTagSelect from '../components/CRBTagSelect';
+import CRBTagPicker from '../components/CRBTagPicker';
+import CRBDateTimePicker from '../components/CRBDateTimePicker';
+import CRBTimePicker from '../components/CRBTimePicker';
+import CRBProfileUpload from '../components/CRBProfileUpload';
+import CRBPopUpBox from '../components/CRBPopUpBox';
+import CRBMenu from '../components/CRBMenu';
+import CRBPostCondensed from '../components/CRBPostCondensed';
+import CRBButtonPrimary from '../components/CRBButtonPrimary';
+import CRBButtonSecondary from '../components/CRBButtonSecondary';
+import CRBAccountCondensed from '../components/CRBAccountMenu';
+import CRBCheckBox from '../components/CRBCheckBox';
+import CRBProfile from '../components/CRBProfile';
+import CRBDialog from '../components/CRBDialog';
+import CRBReportMenu from '../components/CRBReportMenu';
 
 // EXERCISE 4.1
 const hostURL = ((process.env.NODE_ENV === "production")

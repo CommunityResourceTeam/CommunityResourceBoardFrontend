@@ -8,7 +8,7 @@ body {
   text-align: center;
   font-size: 100%;
   color: white;
-  background-image: url('./winged-letter.png');
+  background-image: url('../winged-letter.png');
   background-size: 95px;
   background-repeat: repeat;
   letter-spacing: 0.06ch;
