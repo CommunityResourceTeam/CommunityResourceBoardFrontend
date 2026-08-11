@@ -24,6 +24,8 @@ import CRBProfileUpload from './components/CRBProfileUpload';
 import CRBPopUpBox from './components/CRBPopUpBox';
 import CRBMenu from './components/CRBMenu';
 import CRBPostCondensed from './components/CRBPostCondensed';
+import CRBButtonPrimary from './components/CRBButtonPrimary';
+import CRBButtonSecondary from './components/CRBButtonSecondary';
 import CRBAccountCondensed from './components/CRBAccountMenu';
 import CRBCheckBox from './components/CRBCheckBox';
 import CRBProfile from './components/CRBProfile';
@@ -250,6 +252,8 @@ function App(props) {
             <CRBProfileUpload />
             <CRBProfile />
           </nav>
+          <CRBButtonPrimary />
+          <CRBButtonSecondary />
           <AccountManagement />
           <CRBAccountCondensed />
         </header>
