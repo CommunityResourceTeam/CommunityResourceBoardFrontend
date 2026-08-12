@@ -1,13 +1,12 @@
 import React, { useState } from 'react';
-import { Box, Grid, Modal, Typography, Button } from '@mui/material';
+import { Box, Grid, Modal, Typography, Button, Stack } from '@mui/material';
 import { useSearchParams } from 'react-router-dom';
 
 import CRBPostCondensed from '../components/CRBPostCondensed';
 import CRBTagSelect from '../components/CRBTagSelect';
-import CRBTagPicker from '../components/CRBTagPicker';
 import CRBSlider from '../components/CRBSlider';
+import { MOCK_POSTS } from '../components/mockPosts';
 
-// Style object for the MUI Modal box
 const modalStyle = {
     position: 'absolute',
     top: '50%',
@@ -21,67 +20,12 @@ const modalStyle = {
 };
 
 function ExplorePage() {
-
-    const MOCK_POSTS = [
-        {
-            _id: "post_456",
-            authorId: "user_123",
-            title: "Food Bank",
-            description: "Provides free groceries and meals to individuals and families experiencing food insecurity.",
-            location: {
-            address: "123 Example St",
-            city: "Seattle",
-            state: "WA",
-            zip: "98101",
-            coordinates: { latitude: 47.6062, longitude: -122.3321 }
-            },
-            hours: {
-            monday: [{ open: "09:00", close: "17:00" }],
-            tuesday: [{ open: "09:00", close: "17:00" }],
-            wednesday: [],
-            thursday: [{ open: "10:00", close: "18:00" }],
-            friday: [{ open: "09:00", close: "15:00" }],
-            saturday: [],
-            sunday: []
-            },
-            website: "https://example.org",
-            tags: [
-            { tagId: "0", name: "Food Assistance" },
-            { tagId: "1", name: "Free" }
-            ],
-            comments: []
-        },
-        {
-            _id: "post_457",
-            authorId: "user_456",
-            title: "Community Health Clinic",
-            description: "Low-cost medical services, health screenings, and wellness checks.",
-            location: {
-            address: "456 Healthcare Ave",
-            city: "Seattle",
-            state: "WA",
-            zip: "98104",
-            coordinates: { latitude: 47.6011, longitude: -122.3299 }
-            },
-            hours: {
-            monday: [{ open: "08:00", close: "16:00" }],
-            tuesday: [{ open: "08:00", close: "16:00" }]
-            },
-            website: "https://healthclinic.org",
-            tags: [
-            { tagId: "2", name: "Healthcare" },
-            { tagId: "1", name: "Free" }
-            ],
-            comments: []
-        }
-    ];
-
     const [searchParams, setSearchParams] = useSearchParams();
-
     const query = searchParams.get('query') || '';
 
     const [searchInput, setSearchInput] = useState(query);
     const [appliedSearch, setAppliedSearch] = useState(query);
+    const [posts, setPosts] = useState(MOCK_POSTS); // State holding resource array
 
     // Modal state handlers
     const [showFilterModal, setShowFilterModal] = useState(false);
@@ -101,8 +45,9 @@ function ExplorePage() {
     };
 
     return (
-        <Box>
-            <Grid container>
+        <Box sx={{ p: 2 }}>
+            <Grid container spacing={2}>
+                {/* Left Side Column: Filters, Search & Cards */}
                 <Grid item xs={12} md={5} lg={4}>
                     <form onSubmit={handleSearchSubmit}>
                         <input 
@@ -114,27 +59,35 @@ function ExplorePage() {
                         <button type="submit">Search</button>
                     </form>
 
-                    <Box>
+                    <Box sx={{ my: 1 }}>
                         <CRBTagSelect />
                     </Box>
 
-                    <Box>
-                        {/* MUI Button acting as the trigger */}
+                    <Box sx={{ display: 'flex', gap: 1, mb: 2 }}>
                         <Button variant="outlined" onClick={handleOpenModal}>
                             More filters
                         </Button>
                         <button type="button">Sort by &gt;</button>
                     </Box>
+
+                    {/* Condensed Resource Posts List */}
+                    <Stack spacing={2} sx={{ maxHeight: '70vh', overflowY: 'auto', pr: 1 }}>
+                        {posts.map((post) => (
+                            <CRBPostCondensed key={post._id} post={post} />
+                        ))}
+                    </Stack>
                 </Grid>
 
+                {/* Right Side Column: Map View */}
                 <Grid item xs={12} md={7} lg={8}>
-                    <Box>
+                    <Box sx={{ height: '100%', minHeight: '500px', border: '1px solid #ccc', p: 2 }}>
                         <h2>Map View</h2>
-                        <p>(Map component will render here)</p>
+                        <p>(React Leaflet Map component will render here using post.location.coordinates)</p>
                     </Box>
                 </Grid>
             </Grid>
 
+            {/* Filter Modal */}
             <Modal
                 open={showFilterModal}
                 onClose={handleCloseModal}
@@ -150,7 +103,7 @@ function ExplorePage() {
                         <CRBSlider />
                     </Box>
 
-                    <Box sx={{ display: 'flex', justifyContent: 'flex-end', mt: 3}}>
+                    <Box sx={{ display: 'flex', justifyContent: 'flex-end', mt: 3 }}>
                         <Button onClick={handleCloseModal} variant="contained">
                             Done
                         </Button>
