@@ -54,64 +54,65 @@ function PostsGrid() {
   return (
     <>
       {/* Header & Buttons */}
-      <Stack
-        direction="row"
-        alignItems="center"
-        justifyContent="space-between"
-        sx={{ width: 1000, mb: 2 }}
-      >
-        <Typography variant="h3">Your Post</Typography>
+      <div style={{ minHeight: '100vh', width: '100%' }}>
+          <Stack
+          direction="row"
+          alignItems="center"
+          justifyContent="space-between"
+          sx={{ width: '100%', mb: 2 }}
+        >
+          <Typography variant="h3" sx={{color: '#ED9C40'}}>Your Post</Typography>
 
-        <Button
-          onClick={addPost}
-          variant="contained"
-          sx={{
-            fontSize: '100%',
-            ml: 10,
-            bgcolor: "pink",
-            "&:hover": { bgcolor: "purple" }
-          }}
-        >
-          Add Post
-        </Button>
-        
-        <Button
-          onClick={deletePost}
-          variant="contained"
-          sx={{
-            fontSize: '100%',
-            ml: 10,
-            bgcolor: "pink",
-            "&:hover": { bgcolor: "red" }
-          }}
-        >
-          Delete Post
-        </Button>
-      </Stack>
-
-      {/* Posts */}
-      <Box sx={{ flexGrow: 1 }}>
-        <Grid
-          container
-          spacing={8}
-          sx={{
-            display: "flex",
-            justifyContent: "center",
-            alignItems: "center"
-          }}
-        >
-          {posts.map(post => (
-            <CRBPostCondensed key={post.id} />
-          ))}
-        </Grid>
-      </Box>
+          <Button
+            onClick={addPost}
+            variant="contained"
+            sx={{
+              fontSize: '100%',
+              ml: 10,
+              bgcolor: "pink",
+              "&:hover": { bgcolor: "purple" }
+            }}
+          >
+            Add Post
+          </Button>
+          
+          <Button
+            onClick={deletePost}
+            variant="contained"
+            sx={{
+              fontSize: '100%',
+              ml: 10,
+              bgcolor: "pink",
+              "&:hover": { bgcolor: "red" }
+            }}
+          >
+            Delete Post
+          </Button>
+        </Stack>
+        {/* Posts */}
+        <Box sx={{ flexGrow: 1 }}>
+          <Grid
+            container
+            spacing={8}
+            sx={{
+              display: "flex",
+              justifyContent: "center",
+              alignItems: "center"
+            }}
+          >
+            {posts.map(post => (
+              <CRBPostCondensed key={post.id} />
+            ))}
+          </Grid>
+        </Box>
+      </div>
     </>
   )
 }
 
 // Setting Stack Layout
 const StackItem = styled(Paper)(({ theme }) => ({
-  backgroundColor: '#fff',
+  backgroundColor: '#ED9C40',
   ...theme.typography.body2,
   padding: theme.spacing(1),
   textAlign: 'center',
@@ -125,12 +126,12 @@ function SettingStack() {
   return (
     <Box>
       <Stack
-            direction="column"
-            spacing={0.5}
-            sx={{
-              justifyContent: "space-evenly",
-              alignItems: "center",
-            }}
+        direction="column"
+        spacing={0.5}
+        sx={{
+          justifyContent: "space-evenly",
+          alignItems: "center",
+        }}
       >
         <StackItem> <CRBEmailInput /> </StackItem>
         <StackItem> <CRBZipCodeInput /> </StackItem>
@@ -186,7 +187,7 @@ export default function Setting() {
   return (
     // Overall Box
     <Box
-      sx={{ flexGrow: 1, bgcolor: 'background.paper', display: 'flex', height: 'auto', width: 'auto'}}
+      sx={{ flexGrow: 1, display: 'flex', height: 'auto', width: 'auto'}}
     >
       {/* The Tabs */}
         <Tabs
@@ -196,10 +197,11 @@ export default function Setting() {
           onChange={handleChange}
           aria-label="Vertical tabs example"
           sx={{
-              bgcolor: 'purple',
+              bgcolor: '#FFFEF0',
               borderRight: 10,
-              borderColor: 'black',
+              borderColor: '#ED9C40',
               width: 180,
+              minHeight: '100vh',
               flexShrink: 0
             }}
         >
@@ -208,7 +210,7 @@ export default function Setting() {
           <Tab label="Setting" />
         </Tabs>
       {/* The Tab Panels (Create/Delete them here [Connected to The Tabs]) */}
-        <Box sx={{bgcolor: 'blue', display: 'flex', width: '100%', justifyContent: "space-evenly", alignItems: "center"}}>  
+        <Box sx={{bgcolor: '#FFFEF0', display: 'flex', width: '100%', justifyContent: "space-evenly", alignItems: "center"}}>  
           <TabPanel value={value} index={0}>
             <PostsGrid />
           </TabPanel>
