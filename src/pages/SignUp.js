@@ -9,6 +9,14 @@ import CRBEmailInput from "../components/CRBEmailInput";
 import CRBZipcodeInput from '../components/CRBZipCodeInput';
 import CRBPasswordInput from "../components/CRBPasswordInput";
 
+function SignUpName() {
+
+}
+
+function SignUpUserName() {
+  
+}
+
 function SignUpStack() {
   return (
     <Box sx={{ width: '100%', bgcolor: 'lightblue', }}>
