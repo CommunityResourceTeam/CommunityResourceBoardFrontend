@@ -2,7 +2,7 @@ import Box from '@mui/material/Box';
 import { inputBaseClasses } from '@mui/material/InputBase';
 import TextField from '@mui/material/TextField';
 
-export default function CRBZipcodeInput() {
+export default function CRBEmailInput() {
   return (
     <Box
       component="form"
@@ -12,7 +12,7 @@ export default function CRBZipcodeInput() {
     >
       <TextField
         id="outlined-suffix-shrink"
-        label="Zip Code"
+        label="E-Mail"
         variant="outlined"
       />
     </Box>

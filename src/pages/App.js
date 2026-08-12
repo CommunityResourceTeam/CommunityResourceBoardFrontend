@@ -32,7 +32,7 @@ import CRBProfile from '../components/CRBProfile';
 import CRBDialog from '../components/CRBDialog';
 import CRBReportMenu from '../components/CRBReportMenu';
 import CRBPasswordInput from '../components/CRBPasswordInput';
-import CRBGmailInput from '../components/CRBGmailInput';
+import CRBEmailInput from '../components/CRBEmailInput';
 import CRBZipCodeInput from '../components/CRBZipCodeInput';
 
 // EXERCISE 4.1
@@ -258,7 +258,7 @@ function App(props) {
             <CRBReportMenu />
           </nav>
           <CRBZipCodeInput />
-          <CRBGmailInput />
+          <CRBEmailInput />
           <CRBPasswordInput />
           <CRBButtonPrimary />
           <CRBButtonSecondary />
