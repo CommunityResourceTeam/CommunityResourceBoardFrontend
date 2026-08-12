@@ -271,6 +271,7 @@ function App(props) {
           <CRBDateTimePicker />
           <CRBTimePicker />
           <CRBMenu />
+          <CRBGrid />
           <MessagesDisplay secrets={props.secrets} />
           <MessageForm />
         </div>
