@@ -1,5 +1,6 @@
 // React Imports
 import * as React from 'react';
+import { useState } from 'react';
 import { useNavigate, useLocation } from "react-router-dom";
 
 // Multiple Use MUI Import
@@ -7,6 +8,8 @@ import Box from '@mui/material/Box';
 import Typography from '@mui/material/Typography';
 import Paper from '@mui/material/Paper';
 import { styled } from '@mui/material/styles';
+import Button from '@mui/material/Button';
+import AddIcon from '@mui/icons-material/Add';
 
 // Vertical Tab Imports
 import PropTypes from 'prop-types';
@@ -21,6 +24,9 @@ import Grid from '@mui/material/Grid';
 
 // CRB Component Imports
 import CRBPostCondensed from '../components/CRBPostCondensed';
+import CRBEmailInput from '../components/CRBEmailInput'
+import CRBPasswordInput from '../components/CRBPasswordInput'
+import CRBZipCodeInput from '../components/CRBZipCodeInput'
 
 // Profile Grid Layout
 const GridItem = styled(Paper)(({ theme }) => ({
@@ -35,21 +41,72 @@ const GridItem = styled(Paper)(({ theme }) => ({
 }));
 
 function ProfileGrid() {
+  const [posts, setPosts] = useState([]);
+
+  const addPost = () => {
+    setPosts(prev => [...prev, { id: Date.now() }]);
+  };
+
+  const deletePost = () => {
+    setPosts(prev => prev.slice(0, -1));
+  };
+  
   return (
-    <Box sx={{ flexGrow: 1 }}>
-      <Grid container spacing={3}>
-        <Grid>
-          <GridItem><CRBPostCondensed /></GridItem>
+    <>
+      {/* Header & Buttons */}
+      <Stack
+        direction="row"
+        alignItems="center"
+        justifyContent="space-between"
+        sx={{ width: 1000, mb: 2 }}
+      >
+        <Typography variant="h3">Your Post</Typography>
+
+        <Button
+          onClick={addPost}
+          variant="contained"
+          sx={{
+            fontSize: '100%',
+            ml: 10,
+            bgcolor: "pink",
+            "&:hover": { bgcolor: "purple" }
+          }}
+        >
+          Add Post
+        </Button>
+        
+        <Button
+          onClick={deletePost}
+          variant="contained"
+          sx={{
+            fontSize: '100%',
+            ml: 10,
+            bgcolor: "pink",
+            "&:hover": { bgcolor: "red" }
+          }}
+        >
+          Delete Post
+        </Button>
+      </Stack>
+
+      {/* Posts */}
+      <Box sx={{ flexGrow: 1 }}>
+        <Grid
+          container
+          spacing={8}
+          sx={{
+            display: "flex",
+            justifyContent: "center",
+            alignItems: "center"
+          }}
+        >
+          {posts.map(post => (
+            <CRBPostCondensed key={post.id} />
+          ))}
         </Grid>
-        <Grid>
-          <GridItem><CRBPostCondensed /></GridItem>
-        </Grid>
-        <Grid>
-          <GridItem><CRBPostCondensed /></GridItem>
-        </Grid>
-      </Grid>
-    </Box>
-  );
+      </Box>
+    </>
+  )
 }
 
 // Setting Stack Layout
@@ -75,9 +132,9 @@ function SettingStack() {
               alignItems: "center",
             }}
       >
-        <StackItem>StackItem 1</StackItem>
-        <StackItem>StackItem 2</StackItem>
-        <StackItem>StackItem 3</StackItem>
+        <StackItem> <CRBEmailInput /> </StackItem>
+        <StackItem> <CRBZipCodeInput /> </StackItem>
+        <StackItem> <CRBPasswordInput /> </StackItem>
       </Stack>
     </Box>
   );
@@ -151,7 +208,7 @@ export default function Setting() {
           <Tab label="Setting" />
         </Tabs>
       {/* The Tab Panels (Create/Delete them here [Connected to The Tabs]) */}
-        <Box sx={{bgcolor: 'blue', display: 'flex',  width: '100%', justifyContent: "space-evenly", alignItems: "center",}}>  
+        <Box sx={{bgcolor: 'blue', display: 'flex', width: '100%', justifyContent: "space-evenly", alignItems: "center"}}>  
           <TabPanel value={value} index={0}>
             <ProfileGrid />
           </TabPanel>
