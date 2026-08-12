@@ -16,6 +16,7 @@ import '@fontsource/roboto/700.css';
 // Proxy Component Imports
 import CRBSlider from '../components/CRBSlider';
 import CRBDatePicker from '../components/CRBDatePicker';
+import CRBGrid from '../components/CRBGrid';
 import CRBTagSelect from '../components/CRBTagSelect';
 import CRBTagPicker from '../components/CRBTagPicker';
 import CRBDateTimePicker from '../components/CRBDateTimePicker';
@@ -271,6 +272,7 @@ function App(props) {
           <CRBDateTimePicker />
           <CRBTimePicker />
           <CRBMenu />
+          <CRBGrid />
           <MessagesDisplay secrets={props.secrets} />
           <MessageForm />
         </div>
