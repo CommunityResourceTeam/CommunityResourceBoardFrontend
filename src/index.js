@@ -3,6 +3,8 @@ import ReactDOM from 'react-dom/client';
 import { createBrowserRouter, RouterProvider } from 'react-router-dom';
 import './index.css';
 import App from './pages/App';
+import Login from './pages/Login';
+import SignUp from './pages/SignUp';
 import reportWebVitals from './reportWebVitals';
 
 const router = createBrowserRouter([
@@ -13,6 +15,14 @@ const router = createBrowserRouter([
   {
     path: "/secret",
     element: <App secrets={true} />,
+  },
+  {
+    path: "login",
+    element: <Login />
+  },
+  {
+    path: "signup",
+    element: <SignUp />
   },
 ]);
 
