@@ -146,9 +146,9 @@ export default function Setting() {
           onChange={handleChange}
           aria-label="Vertical tabs example"
           sx={{
-              borderRight: 1,
-              borderColor: 'divider',
-              width: 180,
+              borderRight: 10,
+              borderColor: 'AccentColor',
+              width: 200,
               flexShrink: 0
             }}
         >
