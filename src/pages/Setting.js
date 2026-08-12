@@ -110,13 +110,6 @@ TabPanel.propTypes = {
   value: PropTypes.number.isRequired,
 };
 
-function a11yProps(index) {
-  return {
-    id: `vertical-tab-${index}`,
-    'aria-controls': `vertical-tabpanel-${index}`,
-  };
-}
-
 // Main Export
 export default function Setting() {
   // The Array of paths (Create/Delete them here)
@@ -146,9 +139,10 @@ export default function Setting() {
           onChange={handleChange}
           aria-label="Vertical tabs example"
           sx={{
+              bgcolor: 'purple',
               borderRight: 10,
-              borderColor: 'AccentColor',
-              width: 200,
+              borderColor: 'black',
+              width: 180,
               flexShrink: 0
             }}
         >
@@ -157,12 +151,14 @@ export default function Setting() {
           <Tab label="Setting" />
         </Tabs>
       {/* The Tab Panels (Create/Delete them here [Connected to The Tabs]) */}
-        <TabPanel value={value} index={0}>
-          <ProfileGrid />
-        </TabPanel>
-        <TabPanel value={value} index={1}>
-          <SettingStack />
-        </TabPanel>
+        <Box sx={{bgcolor: 'blue', display: 'flex',  width: '100%', justifyContent: "space-evenly", alignItems: "center",}}>  
+          <TabPanel value={value} index={0}>
+            <ProfileGrid />
+          </TabPanel>
+          <TabPanel value={value} index={1}>
+            <SettingStack />
+          </TabPanel>
+        </Box>
       </Box>
   );
 }
