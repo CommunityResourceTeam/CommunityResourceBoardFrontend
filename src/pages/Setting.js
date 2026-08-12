@@ -28,7 +28,7 @@ import CRBEmailInput from '../components/CRBEmailInput'
 import CRBPasswordInput from '../components/CRBPasswordInput'
 import CRBZipCodeInput from '../components/CRBZipCodeInput'
 
-// Profile Grid Layout
+// Posts Grid Layout
 const GridItem = styled(Paper)(({ theme }) => ({
   backgroundColor: '#fff',
   ...theme.typography.body2,
@@ -40,7 +40,7 @@ const GridItem = styled(Paper)(({ theme }) => ({
   }),
 }));
 
-function ProfileGrid() {
+function PostsGrid() {
   const [posts, setPosts] = useState([]);
 
   const addPost = () => {
@@ -170,7 +170,7 @@ TabPanel.propTypes = {
 // Main Export
 export default function Setting() {
   // The Array of paths (Create/Delete them here)
-  const routes = ["/profile", "/setting"];
+  const routes = ["/posts", "/setting"];
 
   const navigate = useNavigate();
   const location = useLocation();
@@ -204,13 +204,13 @@ export default function Setting() {
             }}
         >
           {/* Create/Delete them here (Connected to the Paths) */}
-          <Tab label="Profile" />
+          <Tab label="Posts" />
           <Tab label="Setting" />
         </Tabs>
       {/* The Tab Panels (Create/Delete them here [Connected to The Tabs]) */}
         <Box sx={{bgcolor: 'blue', display: 'flex', width: '100%', justifyContent: "space-evenly", alignItems: "center"}}>  
           <TabPanel value={value} index={0}>
-            <ProfileGrid />
+            <PostsGrid />
           </TabPanel>
           <TabPanel value={value} index={1}>
             <SettingStack />

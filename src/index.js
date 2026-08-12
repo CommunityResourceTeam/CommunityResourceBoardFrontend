@@ -16,7 +16,7 @@ const router = createBrowserRouter([
     element: <App secrets={true} />,
   },
   {
-    path: "/profile",
+    path: "/posts",
     element: <Setting />
   },
   {
