@@ -22,10 +22,6 @@ const router = createBrowserRouter([
   {
     path: "/setting",
     element: <Setting />
-  },
-  {
-    path: "/test",
-    element: <Setting />
   }
 ]);
 
