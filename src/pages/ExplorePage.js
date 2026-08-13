@@ -20,6 +20,7 @@ import markerShadow from 'leaflet/dist/images/marker-shadow.png';
 // Local Component Imports
 import Navbar from '../components/Navbar';
 import CRBPostCondensed from '../components/CRBPostCondensed';
+import CRBPostExpanded from '../components/CRBPostExpanded'; // 👈 Imported Expanded Post Modal
 import CRBTagSelect from '../components/CRBTagSelect';
 import CRBSlider from '../components/CRBSlider';
 import { MOCK_POSTS } from '../components/mockPosts';
@@ -66,7 +67,10 @@ function ExplorePage() {
   const [appliedSearch, setAppliedSearch] = useState(query);
   const [posts, setPosts] = useState(MOCK_POSTS);
 
-  // Modal state handlers
+  // State to hold the post currently open in the expanded modal
+  const [selectedPost, setSelectedPost] = useState(null);
+
+  // Filter Modal state handlers
   const [showFilterModal, setShowFilterModal] = useState(false);
   const handleOpenModal = () => setShowFilterModal(true);
   const handleCloseModal = () => setShowFilterModal(false);
@@ -119,7 +123,7 @@ function ExplorePage() {
               Explore Resources
             </Typography>
 
-            {/* Pretty Search Box Container */}
+            {/* Search Box Container */}
             <Paper
               elevation={0}
               component="form"
@@ -167,7 +171,7 @@ function ExplorePage() {
               </Button>
             </Paper>
 
-            {/* Tags Container styled with Secondary Accent (Blush Pop) */}
+            {/* Tags Container */}
             <Box
               sx={{
                 my: 1.5,
@@ -249,7 +253,13 @@ function ExplorePage() {
               }}
             >
               {posts.map((post) => (
-                <CRBPostCondensed key={post._id} post={post} />
+                <Box 
+                  key={post._id} 
+                  onClick={() => setSelectedPost(post)} 
+                  sx={{ cursor: 'pointer' }}
+                >
+                  <CRBPostCondensed post={post} />
+                </Box>
               ))}
             </Stack>
           </Grid>
@@ -266,7 +276,7 @@ function ExplorePage() {
                 overflow: 'hidden',
                 boxShadow: '0px 6px 20px rgba(237, 156, 64, 0.12)',
                 position: 'sticky',
-                top: 80, // Offset for sticky navbar
+                top: 80,
                 '& .leaflet-container': {
                   height: '100%',
                   width: '100%',
@@ -298,9 +308,18 @@ function ExplorePage() {
                         <Typography variant="body2" color="text.secondary">
                           {post.location.address}, {post.location.city}
                         </Typography>
-                        <Typography variant="caption" display="block" sx={{ mt: 1 }}>
+                        <Typography variant="caption" display="block" sx={{ mt: 1, mb: 1 }}>
                           {post.description}
                         </Typography>
+                        <Button 
+                          size="small" 
+                          variant="contained" 
+                          disableElevation
+                          onClick={() => setSelectedPost(post)}
+                          sx={{ bgcolor: COLORS.primary, color: '#fff', fontSize: '0.7rem' }}
+                        >
+                          View Details
+                        </Button>
                       </Popup>
                     </Marker>
                   );
@@ -311,7 +330,14 @@ function ExplorePage() {
         </Grid>
       </Box>
 
-      {/* Styled Filtering Options Modal */}
+      {/* 3. Expanded Post Modal */}
+      <CRBPostExpanded 
+        open={Boolean(selectedPost)} 
+        handleClose={() => setSelectedPost(null)} 
+        post={selectedPost} 
+      />
+
+      {/* 4. Filter Options Modal */}
       <Modal
         open={showFilterModal}
         onClose={handleCloseModal}

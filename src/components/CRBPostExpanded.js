@@ -20,6 +20,14 @@ import LocationOnIcon from '@mui/icons-material/LocationOn';
 import AccessTimeIcon from '@mui/icons-material/AccessTime';
 import LanguageIcon from '@mui/icons-material/Language';
 
+// Color Palette Constants
+const COLORS = {
+  background: '#FFFEF0', // Ivory
+  primary: '#ED9C40',    // Golden Apricot
+  secondary: '#FAB2EA',  // Blush Pop
+  darkText: '#333333',
+};
+
 // Helper: Format 24hr time -> 12hr AM/PM
 const formatTime = (timeStr) => {
   if (!timeStr) return '';
@@ -73,9 +81,10 @@ const modalStyle = {
   width: '90%',
   maxWidth: 800,
   maxHeight: '90vh',
-  bgcolor: 'background.paper',
-  borderRadius: 3,
-  boxShadow: 24,
+  bgcolor: COLORS.background,
+  borderRadius: 4,
+  border: `2px solid ${COLORS.primary}`,
+  boxShadow: '0px 10px 25px rgba(237, 156, 64, 0.25)',
   p: 3,
   overflowY: 'auto',
   outline: 'none',
@@ -96,7 +105,7 @@ export default function CRBPostExpanded({ open, handleClose, post }) {
     comments = [],
   } = post;
 
-  // Extract likes count
+  // Extract likes count safely
   const likesDisplay = String(
     post.likesCount ?? 
     post.location?.likesCount ?? 
@@ -121,22 +130,31 @@ export default function CRBPostExpanded({ open, handleClose, post }) {
         {/* ================= HEADER ================= */}
         <Box sx={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', mb: 2 }}>
           <Box sx={{ display: 'flex', alignItems: 'center', gap: 1.5 }}>
-            <Avatar sx={{ width: 40, height: 40 }}>
+            <Avatar sx={{ width: 40, height: 40, bgcolor: COLORS.primary, color: '#FFFFFF', fontWeight: 'bold' }}>
               {author?.name ? author.name.charAt(0).toUpperCase() : '?'}
             </Avatar>
 
-            {/* Conditionally render author name badge */}
+            {/* Author Badge */}
             {(author?.name || author?.username) && (
-              <Paper variant="outlined" sx={{ px: 1.5, py: 0.5, borderRadius: 1 }}>
-                <Typography variant="body2" fontWeight="bold">
+              <Paper 
+                variant="outlined" 
+                sx={{ 
+                  px: 1.5, 
+                  py: 0.5, 
+                  borderRadius: 2, 
+                  bgcolor: '#FFFFFF',
+                  borderColor: COLORS.secondary 
+                }}
+              >
+                <Typography variant="body2" fontWeight="bold" sx={{ color: COLORS.darkText }}>
                   {author?.name || author?.username}
                 </Typography>
               </Paper>
             )}
 
-            {/* Post Created Date Display */}
+            {/* Created Date */}
             {formattedDate && (
-              <Typography variant="subtitle1" fontWeight="bold" color="text.primary" sx={{ ml: 0.5, color: "black" }}>
+              <Typography variant="subtitle1" fontWeight="bold" sx={{ ml: 0.5, color: COLORS.darkText }}>
                 {formattedDate}
               </Typography>
             )}
@@ -144,10 +162,10 @@ export default function CRBPostExpanded({ open, handleClose, post }) {
 
           <Box sx={{ display: 'flex', alignItems: 'center', gap: 1 }}>
             <IconButton color="default">
-              <MoreHorizIcon fontSize="medium" />
+              <MoreHorizIcon fontSize="medium" sx={{ color: COLORS.darkText }} />
             </IconButton>
             <IconButton onClick={handleClose} color="default">
-              <CloseIcon fontSize="medium" />
+              <CloseIcon fontSize="medium" sx={{ color: COLORS.darkText }} />
             </IconButton>
           </Box>
         </Box>
@@ -155,16 +173,17 @@ export default function CRBPostExpanded({ open, handleClose, post }) {
         {/* ================= MAIN CONTENT (GRID) ================= */}
         <Grid container spacing={2} sx={{ mb: 2 }}>
           {/* Picture Box */}
-          <Grid item xs={12} sm={6}>
+          <Grid size={{ xs: 12, sm: 6 }}>
             <Paper
-              variant="outlined"
+              elevation={0}
               sx={{
                 height: 220,
                 display: 'flex',
                 alignItems: 'center',
                 justifyContent: 'center',
-                backgroundColor: '#f5f5f5',
-                borderRadius: 2,
+                backgroundColor: '#FFFFFF',
+                borderRadius: 3,
+                border: `1px solid ${COLORS.secondary}`
               }}
             >
               <Typography color="text.secondary" fontWeight={500}>
@@ -174,7 +193,7 @@ export default function CRBPostExpanded({ open, handleClose, post }) {
           </Grid>
 
           {/* Title + Likes + Description Box */}
-          <Grid item xs={12} sm={6}>
+          <Grid size={{ xs: 12, sm: 6 }}>
             <Box sx={{ display: 'flex', flexDirection: 'column', height: '100%', minWidth: 0 }}>
               
               {/* Title Header & Like Button Row */}
@@ -190,16 +209,19 @@ export default function CRBPostExpanded({ open, handleClose, post }) {
               >
                 {/* Title Box */}
                 <Paper 
-                  variant="outlined" 
+                  elevation={0}
                   sx={{ 
                     px: 2, 
                     py: 0.5, 
                     mr: 1,
                     flex: '1 1 auto', 
-                    minWidth: 0 
+                    minWidth: 0,
+                    bgcolor: '#FFFFFF',
+                    border: `1px solid ${COLORS.primary}`,
+                    borderRadius: 2
                   }}
                 >
-                  <Typography id="post-expanded-title" variant="subtitle1" fontWeight="bold" noWrap>
+                  <Typography id="post-expanded-title" variant="subtitle1" fontWeight="bold" noWrap sx={{ color: COLORS.primary }}>
                     {title}
                   </Typography>
                 </Paper>
@@ -213,13 +235,13 @@ export default function CRBPostExpanded({ open, handleClose, post }) {
                     gap: 0.5 
                   }}
                 >
-                  <IconButton size="small" color="primary" sx={{ p: 0.5 }}>
+                  <IconButton size="small" sx={{ p: 0.5, color: COLORS.primary }}>
                     <ThumbUpOutlinedIcon fontSize="small" />
                   </IconButton>
                   <Typography 
                     variant="body2" 
                     fontWeight="bold"
-                    sx={{ color: '#000000', whiteSpace: 'nowrap' }}
+                    sx={{ color: COLORS.darkText, whiteSpace: 'nowrap' }}
                   >
                     {likesDisplay}
                   </Typography>
@@ -228,17 +250,19 @@ export default function CRBPostExpanded({ open, handleClose, post }) {
 
               {/* Description Container */}
               <Paper
-                variant="outlined"
+                elevation={0}
                 sx={{
                   p: 2,
                   flexGrow: 1,
                   minHeight: 160,
                   maxHeight: 170,
                   overflowY: 'auto',
-                  borderRadius: 2,
+                  borderRadius: 3,
+                  bgcolor: '#FFFFFF',
+                  border: `1px solid ${COLORS.secondary}`
                 }}
               >
-                <Typography variant="body2" color="text.secondary">
+                <Typography variant="body2" sx={{ color: COLORS.darkText }}>
                   {description}
                 </Typography>
               </Paper>
@@ -247,7 +271,7 @@ export default function CRBPostExpanded({ open, handleClose, post }) {
         </Grid>
 
         {/* ================= TAGS SECTION ================= */}
-        <Paper variant="outlined" sx={{ p: 1.5, mb: 2, borderRadius: 2 }}>
+        <Paper elevation={0} sx={{ p: 1.5, mb: 2, borderRadius: 3, bgcolor: '#FFFFFF', border: `1px solid ${COLORS.secondary}` }}>
           <Box sx={{ display: 'flex', gap: 1, flexWrap: 'wrap', alignItems: 'center' }}>
             <Typography variant="caption" color="text.secondary" fontWeight="bold" sx={{ mr: 1 }}>
               TAGS:
@@ -257,12 +281,12 @@ export default function CRBPostExpanded({ open, handleClose, post }) {
                 key={tag.id || tag.tagId || tag._id}
                 label={tag.name}
                 size="small"
-                variant="outlined"
                 sx={{
-                  borderColor: tag.color || 'default',
-                  color: tag.color || 'inherit',
+                  bgcolor: COLORS.secondary,
+                  color: COLORS.darkText,
                   fontWeight: 600,
                   fontSize: '0.75rem',
+                  border: 'none'
                 }}
               />
             ))}
@@ -270,17 +294,17 @@ export default function CRBPostExpanded({ open, handleClose, post }) {
         </Paper>
 
         {/* ================= RESOURCES SECTION ================= */}
-        <Paper variant="outlined" sx={{ p: 2, mb: 2, borderRadius: 2 }}>
-          <Typography variant="subtitle2" fontWeight="bold" gutterBottom sx={{ textTransform: 'uppercase', letterSpacing: 0.5 }}>
+        <Paper elevation={0} sx={{ p: 2, mb: 2, borderRadius: 3, bgcolor: '#FFFFFF', border: `1px solid ${COLORS.secondary}` }}>
+          <Typography variant="subtitle2" fontWeight="bold" gutterBottom sx={{ textTransform: 'uppercase', letterSpacing: 0.5, color: COLORS.primary }}>
             Resources & Information
           </Typography>
 
           <Grid container spacing={2} sx={{ mt: 0.5 }}>
             {/* Address */}
             {location?.address && (
-              <Grid item xs={12} sm={6} sx={{ display: 'flex', alignItems: 'flex-start', gap: 1 }}>
-                <LocationOnIcon fontSize="small" color="action" />
-                <Typography variant="body2" color="text.secondary">
+              <Grid size={{ xs: 12, sm: 6 }} sx={{ display: 'flex', alignItems: 'flex-start', gap: 1 }}>
+                <LocationOnIcon fontSize="small" sx={{ color: COLORS.primary }} />
+                <Typography variant="body2" sx={{ color: COLORS.darkText }}>
                   {location.address}, {location.city}, {location.state} {location.zip}
                 </Typography>
               </Grid>
@@ -288,9 +312,9 @@ export default function CRBPostExpanded({ open, handleClose, post }) {
 
             {/* Website Link */}
             {website && (
-              <Grid item xs={12} sm={6} sx={{ display: 'flex', alignItems: 'center', gap: 1 }}>
-                <LanguageIcon fontSize="small" color="action" />
-                <Link href={website} target="_blank" rel="noopener noreferrer" variant="body2" underline="hover">
+              <Grid size={{ xs: 12, sm: 6 }} sx={{ display: 'flex', alignItems: 'center', gap: 1 }}>
+                <LanguageIcon fontSize="small" sx={{ color: COLORS.primary }} />
+                <Link href={website} target="_blank" rel="noopener noreferrer" variant="body2" underline="hover" sx={{ color: COLORS.primary, fontWeight: 'bold' }}>
                   {website}
                 </Link>
               </Grid>
@@ -298,11 +322,11 @@ export default function CRBPostExpanded({ open, handleClose, post }) {
 
             {/* Hours of Operation */}
             {groupedSchedule.length > 0 && (
-              <Grid item xs={12} sx={{ display: 'flex', alignItems: 'flex-start', gap: 1 }}>
-                <AccessTimeIcon fontSize="small" color="action" sx={{ mt: 0.3 }} />
+              <Grid size={{ xs: 12 }} sx={{ display: 'flex', alignItems: 'flex-start', gap: 1 }}>
+                <AccessTimeIcon fontSize="small" sx={{ color: COLORS.primary, mt: 0.3 }} />
                 <Box sx={{ display: 'flex', flexWrap: 'wrap', gap: 1.5 }}>
                   {groupedSchedule.map((item, idx) => (
-                    <Typography key={idx} variant="caption" color="text.secondary">
+                    <Typography key={idx} variant="caption" sx={{ color: COLORS.darkText }}>
                       <strong>{item.dayLabel}:</strong> {item.timeText}
                     </Typography>
                   ))}
@@ -313,8 +337,8 @@ export default function CRBPostExpanded({ open, handleClose, post }) {
         </Paper>
 
         {/* ================= REVIEWS / COMMENTS SECTION ================= */}
-        <Paper variant="outlined" sx={{ p: 2, borderRadius: 2 }}>
-          <Typography variant="subtitle2" fontWeight="bold" gutterBottom>
+        <Paper elevation={0} sx={{ p: 2, borderRadius: 3, bgcolor: '#FFFFFF', border: `1px solid ${COLORS.secondary}` }}>
+          <Typography variant="subtitle2" fontWeight="bold" gutterBottom sx={{ color: COLORS.primary }}>
             Reviews & Comments ({comments.length})
           </Typography>
 
@@ -322,16 +346,16 @@ export default function CRBPostExpanded({ open, handleClose, post }) {
           <Box sx={{ display: 'flex', flexDirection: 'column', gap: 1.5, my: 1.5, maxHeight: 180, overflowY: 'auto' }}>
             {comments.length > 0 ? (
               comments.map((comment) => (
-                <Box key={comment.id || comment._id} sx={{ bgcolor: '#f9f9f9', p: 1.5, borderRadius: 1.5 }}>
+                <Box key={comment.id || comment._id} sx={{ bgcolor: COLORS.background, p: 1.5, borderRadius: 2, border: `1px solid ${COLORS.secondary}` }}>
                   <Box sx={{ display: 'flex', justifyContent: 'space-between', mb: 0.5 }}>
-                    <Typography variant="caption" fontWeight="bold">
+                    <Typography variant="caption" fontWeight="bold" sx={{ color: COLORS.primary }}>
                       {comment.author?.name || comment.authorUsername || 'User'}
                     </Typography>
                     <Typography variant="caption" color="text.secondary">
                       {comment.createdAt ? new Date(comment.createdAt).toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' }) : ''}
                     </Typography>
                   </Box>
-                  <Typography variant="body2" color="text.primary">
+                  <Typography variant="body2" sx={{ color: COLORS.darkText }}>
                     {comment.body}
                   </Typography>
                 </Box>
@@ -346,14 +370,34 @@ export default function CRBPostExpanded({ open, handleClose, post }) {
           <Divider sx={{ my: 1 }} />
 
           {/* Add New Comment Field */}
-          <Box sx={{ display: 'flex', gap: 1, mt: 1 }}>
+          <Box sx={{ display: 'flex', gap: 1, mt: 1.5 }}>
             <TextField
               size="small"
               fullWidth
               placeholder="Write a comment or review..."
               variant="outlined"
+              sx={{
+                '& .MuiOutlinedInput-root': {
+                  borderRadius: 2,
+                  '& fieldset': { borderColor: COLORS.secondary },
+                  '&:hover fieldset': { borderColor: COLORS.primary },
+                  '&.Mui-focused fieldset': { borderColor: COLORS.primary },
+                }
+              }}
             />
-            <Button variant="contained" disableElevation size="small">
+            <Button 
+              variant="contained" 
+              disableElevation 
+              size="small"
+              sx={{ 
+                bgcolor: COLORS.primary, 
+                color: '#FFFFFF', 
+                fontWeight: 'bold', 
+                borderRadius: 2,
+                px: 2,
+                '&:hover': { bgcolor: '#d8872e' }
+              }}
+            >
               Post
             </Button>
           </Box>
