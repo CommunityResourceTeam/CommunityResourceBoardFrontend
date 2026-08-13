@@ -21,7 +21,8 @@ function Navbar() {
         </Link>
         <Link to="/explorePage" className="navbar-link">
           <Compass size={18} /> Explore
-        </Link>
+        </Link>  
+        
       </div>
 
       <div className="navbar-account">

@@ -274,7 +274,8 @@ function App(props) {
           <nav className="explore-header" aria-label="Explore actions">
             <Link to="/explorePage" className="explore-link">
               Explore All <ArrowRight size={18} />
-            </Link>
+            </Link> 
+            
           </nav>
           <main className="sketch-post-grid">
             <CRBGrid />
