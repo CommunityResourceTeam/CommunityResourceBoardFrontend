@@ -98,12 +98,16 @@ export default function CRBPostExpanded({ open, handleClose, post }) {
     description,
     author,
     createdAt,
+    imageUrl,
+    image,
     location,
     hours,
     website,
     tags = [],
     comments = [],
   } = post;
+
+  const displayImage = imageUrl || image;
 
   // Extract likes count safely
   const likesDisplay = String(
@@ -183,12 +187,26 @@ export default function CRBPostExpanded({ open, handleClose, post }) {
                 justifyContent: 'center',
                 backgroundColor: '#FFFFFF',
                 borderRadius: 3,
-                border: `1px solid ${COLORS.secondary}`
+                border: `1px solid ${COLORS.secondary}`,
+                overflow: 'hidden'
               }}
             >
-              <Typography color="text.secondary" fontWeight={500}>
-                Picture
-              </Typography>
+              {displayImage ? (
+                <Box
+                  component="img"
+                  src={displayImage}
+                  alt={title}
+                  sx={{
+                    width: '100%',
+                    height: '100%',
+                    objectFit: 'cover'
+                  }}
+                />
+              ) : (
+                <Typography color="text.secondary" fontWeight={500}>
+                  No Image Available
+                </Typography>
+              )}
             </Paper>
           </Grid>
 
