@@ -5,14 +5,15 @@ import Grid from '@mui/material/Grid';
 import Typography from '@mui/material/Typography';
 import Slider from '@mui/material/Slider';
 import MuiInput from '@mui/material/Input';
-import VolumeUp from '@mui/icons-material/VolumeUp';
+import LocationOn from '@mui/icons-material/LocationOn';
 
 const Input = styled(MuiInput)`
-  width: 42px;
+  width: 50px;
 `;
 
 export default function CRBSlider() {
-  const [value, setValue] = React.useState(30);
+  // Default search radius (e.g., 10 miles)
+  const [value, setValue] = React.useState(10);
 
   const handleSliderChange = (event, newValue) => {
     setValue(newValue);
@@ -23,43 +24,55 @@ export default function CRBSlider() {
   };
 
   const handleBlur = () => {
-    if (value < 0) {
-      setValue(0);
-    } else if (value > 100) {
-      setValue(100);
+    if (value < 1) {
+      setValue(1);
+    } else if (value > 50) {
+      setValue(50);
     }
   };
 
   return (
-    <Box sx={{ width: 250 }}>
-      <Typography id="input-slider" gutterBottom>
-        Volume
+    <Box sx={{ width: 300 }}>
+      <Typography id="distance-slider" gutterBottom sx={{ color: 'black', fontWeight: 500 }}>
+        Search Distance
       </Typography>
+
       <Grid container spacing={2} sx={{ alignItems: 'center' }}>
         <Grid>
-          <VolumeUp />
+          <LocationOn color="action" />
         </Grid>
+        
         <Grid size="grow">
           <Slider
             value={typeof value === 'number' ? value : 0}
             onChange={handleSliderChange}
-            aria-labelledby="input-slider"
+            min={1}
+            max={50}
+            aria-labelledby="distance-slider"
+            valueLabelDisplay="auto"
+            valueLabelFormat={(val) => `${val} mi`}
           />
         </Grid>
+
         <Grid>
-          <Input
-            value={value}
-            size="small"
-            onChange={handleInputChange}
-            onBlur={handleBlur}
-            inputProps={{
-              step: 10,
-              min: 0,
-              max: 100,
-              type: 'number',
-              'aria-labelledby': 'input-slider',
-            }}
-          />
+          <Box sx={{ display: 'flex', alignItems: 'center', gap: 0.5 }}>
+            <Input
+              value={value}
+              size="small"
+              onChange={handleInputChange}
+              onBlur={handleBlur}
+              inputProps={{
+                step: 1,
+                min: 1,
+                max: 50,
+                type: 'number',
+                'aria-labelledby': 'distance-slider',
+              }}
+            />
+            <Typography variant="body2" sx={{ color: 'text.secondary' }}>
+              mile(s)
+            </Typography>
+          </Box>
         </Grid>
       </Grid>
     </Box>
