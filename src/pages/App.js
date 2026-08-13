@@ -4,7 +4,6 @@ import MessageForm from '../components/MessageForm';
 import AccountManagement from '../components/AccountManagement';
 
 import './App.css';
-import LogoImage from '../Primary_Logo_ResourceNest.png';
 import MessagesContext from '../contexts/MessagesContext';
 import AccountContext from '../contexts/AccountContext';
 
@@ -13,12 +12,16 @@ import '@fontsource/roboto/400.css';
 import '@fontsource/roboto/500.css';
 import '@fontsource/roboto/700.css';
 
+import Navbar from '../components/Navbar';
+
+import { Link } from 'react-router-dom';
+import { ArrowRight } from 'lucide-react';
+
 // Proxy Component Imports
 import CRBSlider from '../components/CRBSlider';
 import CRBDatePicker from '../components/CRBDatePicker';
 import CRBGrid from '../components/CRBGrid';
 import CRBTagSelect from '../components/CRBTagSelect';
-import CRBTagPicker from '../components/CRBTagPicker';
 import CRBDateTimePicker from '../components/CRBDateTimePicker';
 import CRBTimePicker from '../components/CRBTimePicker';
 import CRBProfileUpload from '../components/CRBProfileUpload';
@@ -35,9 +38,6 @@ import CRBReportMenu from '../components/CRBReportMenu';
 import CRBPasswordInput from '../components/CRBPasswordInput';
 import CRBEmailInput from '../components/CRBEmailInput';
 import CRBZipCodeInput from '../components/CRBZipCodeInput';
-
-//import lucide icons
-import { Home, Compass, Settings } from 'lucide-react';
 
 const hostURL = ((process.env.NODE_ENV === "production")
                 ? "https://cfa-summer26-l10-weihua-api.onrender.com"
@@ -237,7 +237,7 @@ function App(props) {
     else {
       getMessages("false");
     }
-  }, [props, loggedInUser]); // This will activate any time App itself gets re-rendered
+  }, [props, loggedInUser]);
 
   useEffect(() => {
     loadLocalAccountData();
@@ -246,27 +246,7 @@ function App(props) {
   return (
     <AccountContext.Provider value={{loggedInUser, signupUser, loginUser, logoutUser}}>
       <MessagesContext.Provider value={{messages, newMessage, getMessages, updateMessage, deleteMessage}}>
-      <nav className="site-navbar">
-        <div className="navbar-logo">
-          <img src={LogoImage} alt="ResourceNest" className="navbar-logo-img" />
-          <span className="navbar-logo-text">ResourceNest</span>
-        </div>
-        <div className="navbar-links">
-          <a href="/" className="navbar-link">
-            <Home size={18} /> Home
-          </a>
-          <a href="/explore" className="navbar-link">
-            <Compass size={18} /> Explore
-          </a>
-        </div>
-
-        <div className="navbar-account">
-          <span className="navbar-username">{loggedInUser || "Name"}</span>
-          <button type="button" className="navbar-settings-btn" aria-label="Settings">
-            <Settings size={20} />
-          </button>
-        </div>
-      </nav>
+      <Navbar />
         <section className="sketch-container">    
 
           <header className="sketch-header">
@@ -292,7 +272,9 @@ function App(props) {
           </section>
 
           <nav className="explore-header" aria-label="Explore actions">
-            <CRBButtonPrimary />
+            <Link to="/explore" className="explore-link">
+              Explore All <ArrowRight size={18} />
+            </Link>
           </nav>
           <main className="sketch-post-grid">
             <CRBGrid />

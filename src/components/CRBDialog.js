@@ -20,7 +20,7 @@ export default function CRBDialog() {
   return (
     <React.Fragment>
       <Button variant="outlined" onClick={handleClickOpen}>
-        Open alert dialog
+        Open Warning
       </Button>
       <Dialog
         open={open}
@@ -30,19 +30,17 @@ export default function CRBDialog() {
         role="alertdialog"
       >
         <DialogTitle id="alert-dialog-title">
-          {"Use Google's location service?"}
+          {"Warning from ResourceNest"}
         </DialogTitle>
         <DialogContent>
           <DialogContentText id="alert-dialog-description">
-            Let Google help apps determine location. This means sending anonymous
-            location data to Google, even when no apps are running.
+            Hello user, as you navigate our site, please be cautious of 
+            real and fake resources. Be sure to not agree to anything sketchy 
+            without verifying first. Our website's goal is to provide a hub of resources!
           </DialogContentText>
         </DialogContent>
         <DialogActions>
-          <Button onClick={handleClose} autoFocus>
-            Disagree
-          </Button>
-          <Button onClick={handleClose}>Agree</Button>
+          <Button onClick={handleClose}>I Understand</Button>
         </DialogActions>
       </Dialog>
     </React.Fragment>
