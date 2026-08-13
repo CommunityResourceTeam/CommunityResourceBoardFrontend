@@ -9,7 +9,6 @@ import Typography from '@mui/material/Typography';
 import Paper from '@mui/material/Paper';
 import { styled } from '@mui/material/styles';
 import Button from '@mui/material/Button';
-import AddIcon from '@mui/icons-material/Add';
 
 // Vertical Tab Imports
 import PropTypes from 'prop-types';
@@ -133,9 +132,9 @@ function SettingStack() {
           alignItems: "center",
         }}
       >
-        <StackItem> <CRBEmailInput /> </StackItem>
-        <StackItem> <CRBZipCodeInput /> </StackItem>
-        <StackItem> <CRBPasswordInput /> </StackItem>
+        <StackItem> <Typography sx={{display: 'flex', justifyContent: 'left'}}>Change E-Mail</Typography> <CRBEmailInput /> </StackItem>
+        <StackItem> <Typography sx={{display: 'flex', justifyContent: 'left'}}>Change Zip Code</Typography> <CRBZipCodeInput /> </StackItem>
+        <StackItem> <Typography sx={{display: 'flex', justifyContent: 'left'}}>Change Password</Typography> <CRBPasswordInput /> </StackItem>
       </Stack>
     </Box>
   );
