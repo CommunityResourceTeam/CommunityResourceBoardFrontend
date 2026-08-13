@@ -68,8 +68,8 @@ function PostsGrid() {
             sx={{
               fontSize: '100%',
               ml: 10,
-              bgcolor: "pink",
-              "&:hover": { bgcolor: "purple" }
+              bgcolor: "#FAB2EA",
+              "&:hover": { bgcolor: "#ED9C40" }
             }}
           >
             Add Post
@@ -81,7 +81,7 @@ function PostsGrid() {
             sx={{
               fontSize: '100%',
               ml: 10,
-              bgcolor: "pink",
+              bgcolor: "#FAB2EA",
               "&:hover": { bgcolor: "red" }
             }}
           >
