@@ -3,6 +3,7 @@ import ReactDOM from 'react-dom/client';
 import { createBrowserRouter, RouterProvider } from 'react-router-dom';
 import './index.css';
 import App from './pages/App';
+import Setting from './pages/Setting';
 import reportWebVitals from './reportWebVitals';
 import ExplorePage from './pages/ExplorePage';
 
@@ -14,6 +15,14 @@ const router = createBrowserRouter([
   {
     path: "/secret",
     element: <App secrets={true} />,
+  },
+  {
+    path: "/posts",
+    element: <Setting />
+  },
+  {
+    path: "/setting",
+    element: <Setting />
   },
   {
     path: "/explorePage",
