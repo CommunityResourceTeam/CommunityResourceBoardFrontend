@@ -4,7 +4,6 @@ import MessageForm from '../components/MessageForm';
 import AccountManagement from '../components/AccountManagement';
 
 import './App.css';
-import LogoImage from '../secret-messages-logo.png';
 import MessagesContext from '../contexts/MessagesContext';
 import AccountContext from '../contexts/AccountContext';
 
@@ -13,11 +12,16 @@ import '@fontsource/roboto/400.css';
 import '@fontsource/roboto/500.css';
 import '@fontsource/roboto/700.css';
 
+import Navbar from '../components/Navbar';
+
+import { Link } from 'react-router-dom';
+import { ArrowRight } from 'lucide-react';
+
 // Proxy Component Imports
 import CRBSlider from '../components/CRBSlider';
 import CRBDatePicker from '../components/CRBDatePicker';
+import CRBGrid from '../components/CRBGrid';
 import CRBTagSelect from '../components/CRBTagSelect';
-import CRBTagPicker from '../components/CRBTagPicker';
 import CRBDateTimePicker from '../components/CRBDateTimePicker';
 import CRBTimePicker from '../components/CRBTimePicker';
 import CRBProfileUpload from '../components/CRBProfileUpload';
@@ -31,8 +35,10 @@ import CRBCheckBox from '../components/CRBCheckBox';
 import CRBProfile from '../components/CRBProfile';
 import CRBDialog from '../components/CRBDialog';
 import CRBReportMenu from '../components/CRBReportMenu';
+import CRBPasswordInput from '../components/CRBPasswordInput';
+import CRBEmailInput from '../components/CRBEmailInput';
+import CRBZipCodeInput from '../components/CRBZipCodeInput';
 
-// EXERCISE 4.1
 const hostURL = ((process.env.NODE_ENV === "production")
                 ? "https://cfa-summer26-l10-weihua-api.onrender.com"
                 : "https://127.0.0.1:3002");
@@ -231,7 +237,7 @@ function App(props) {
     else {
       getMessages("false");
     }
-  }, [props, loggedInUser]); // This will activate any time App itself gets re-rendered
+  }, [props, loggedInUser]);
 
   useEffect(() => {
     loadLocalAccountData();
@@ -240,37 +246,44 @@ function App(props) {
   return (
     <AccountContext.Provider value={{loggedInUser, signupUser, loginUser, logoutUser}}>
       <MessagesContext.Provider value={{messages, newMessage, getMessages, updateMessage, deleteMessage}}>
-        <header>
-          <nav id="branding">
-            <CRBDatePicker />
-            <CRBTagSelect />
-            <CRBDialog />
-            <CRBTagPicker />
-            <CRBSlider />
-            <img id="logo" src={LogoImage} alt="Secret Messages App" />
-            <h1 id="title">Secret Messages</h1>
-            <CRBCheckBox />
-            <CRBProfileUpload />
-            <CRBProfile />
-            <CRBReportMenu />
+      <Navbar />
+        <section className="sketch-container">    
+
+          <header className="sketch-header">
+              <h1>Welcome to ResourceNest!</h1>
+          </header>
+
+          <section className="sketch-tags-section">
+            <p className="section-label">Tags</p>
+            <nav className="tags-column">
+              <CRBTagSelect />
+            </nav>
+            <button type="button" className="more-tags-btn">More Tags</button>
+          </section>
+
+          <section className="sketch-search-section">
+            <label htmlFor="homepage-search" className="sr-only">Search Posts</label>
+            <input 
+              id="homepage-search"
+              type="text" 
+              placeholder="Search Bar" 
+              className="search-input" 
+            />
+          </section>
+
+          <nav className="explore-header" aria-label="Explore actions">
+            <Link to="/explore" className="explore-link">
+              Explore All <ArrowRight size={18} />
+            </Link>
           </nav>
-          <CRBButtonPrimary />
-          <CRBButtonSecondary />
-          <AccountManagement />
-          <CRBAccountCondensed />
-        </header>
-        <div id="main">
-          <CRBPopUpBox />
-          <CRBPostCondensed />
-          <CRBDateTimePicker />
-          <CRBTimePicker />
-          <CRBMenu />
-          <MessagesDisplay secrets={props.secrets} />
-          <MessageForm />
-        </div>
-        <footer>
-            <p>&copy; 2024 Secret Messages</p>
-        </footer>
+          <main className="sketch-post-grid">
+            <CRBGrid />
+          </main>
+          <footer className="utility-bar">
+            <CRBDialog />
+          </footer>
+        </section>
+
       </MessagesContext.Provider>
     </AccountContext.Provider>
   );

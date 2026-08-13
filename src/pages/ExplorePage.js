@@ -1,13 +1,31 @@
 import React, { useState } from 'react';
-import { Box, Grid, Modal, Typography, Button } from '@mui/material';
+import { Box, Grid, Modal, Typography, Button, Stack } from '@mui/material';
 import { useSearchParams } from 'react-router-dom';
 
+// Leaflet Core & React Leaflet Imports
+import { MapContainer, TileLayer, Marker, Popup } from 'react-leaflet';
+import L from 'leaflet';
+import 'leaflet/dist/leaflet.css';
+
+// Leaflet Marker Icon Assets
+import markerIcon2x from 'leaflet/dist/images/marker-icon-2x.png';
+import markerIcon from 'leaflet/dist/images/marker-icon.png';
+import markerShadow from 'leaflet/dist/images/marker-shadow.png';
+
+// Local Component Imports
 import CRBPostCondensed from '../components/CRBPostCondensed';
 import CRBTagSelect from '../components/CRBTagSelect';
-import CRBTagPicker from '../components/CRBTagPicker';
 import CRBSlider from '../components/CRBSlider';
+import { MOCK_POSTS } from '../components/mockPosts';
 
-// Style object for the MUI Modal box
+// Fix missing default marker icon issue in React Leaflet builds
+delete L.Icon.Default.prototype._getIconUrl;
+L.Icon.Default.mergeOptions({
+    iconUrl: markerIcon,
+    iconRetinaUrl: markerIcon2x,
+    shadowUrl: markerShadow,
+});
+
 const modalStyle = {
     position: 'absolute',
     top: '50%',
@@ -20,13 +38,16 @@ const modalStyle = {
     p: 4,
 };
 
+// Default map center coordinates (Seattle)
+const SEATTLE_CENTER = [47.6062, -122.3321];
+
 function ExplorePage() {
     const [searchParams, setSearchParams] = useSearchParams();
-
     const query = searchParams.get('query') || '';
 
     const [searchInput, setSearchInput] = useState(query);
     const [appliedSearch, setAppliedSearch] = useState(query);
+    const [posts, setPosts] = useState(MOCK_POSTS); // State holding resource array
 
     // Modal state handlers
     const [showFilterModal, setShowFilterModal] = useState(false);
@@ -46,9 +67,10 @@ function ExplorePage() {
     };
 
     return (
-        <Box>
-            <Grid container>
-                <Grid item xs={12} md={5} lg={4}>
+        <Box sx={{ p: 2 }}>
+            <Grid container spacing={2}>
+                {/* Left Side Column: Filters, Search & Cards */}
+                <Grid size={{ xs: 12, md: 5, lg: 4 }}>
                     <form onSubmit={handleSearchSubmit}>
                         <input 
                             type="text"
@@ -59,27 +81,77 @@ function ExplorePage() {
                         <button type="submit">Search</button>
                     </form>
 
-                    <Box>
+                    <Box sx={{ my: 1 }}>
                         <CRBTagSelect />
                     </Box>
 
-                    <Box>
-                        {/* MUI Button acting as the trigger */}
+                    <Box sx={{ display: 'flex', gap: 1, mb: 2 }}>
                         <Button variant="outlined" onClick={handleOpenModal}>
                             More filters
                         </Button>
                         <button type="button">Sort by &gt;</button>
                     </Box>
+
+                    {/* Condensed Resource Posts List */}
+                    <Stack spacing={2} sx={{ maxHeight: '70vh', overflowY: 'auto', pr: 1 }}>
+                        {posts.map((post) => (
+                            <CRBPostCondensed key={post._id} post={post} />
+                        ))}
+                    </Stack>
                 </Grid>
 
-                <Grid item xs={12} md={7} lg={8}>
-                    <Box>
-                        <h2>Map View</h2>
-                        <p>(Map component will render here)</p>
+                {/* Right Side Column: Map View */}
+                <Grid size={{ xs: 12, md: 7, lg: 8 }}>
+                    <Box 
+                        sx={{ 
+                            height: 'calc(100vh - 100px)', 
+                            minHeight: '500px', 
+                            border: '1px solid #ccc',
+                            borderRadius: 2,
+                            overflow: 'hidden',
+                            '& .leaflet-container': {
+                                height: '100%',
+                                width: '100%',
+                                zIndex: 1
+                            }
+                        }}
+                    >
+                        <MapContainer 
+                            center={SEATTLE_CENTER} 
+                            zoom={13} 
+                            scrollWheelZoom={true}
+                        >
+                            <TileLayer
+                                attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+                                url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
+                            />
+                            {posts.map((post) => {
+                                const { latitude, longitude } = post.location.coordinates;
+                                return (
+                                    <Marker 
+                                        key={post._id} 
+                                        position={[latitude, longitude]}
+                                    >
+                                        <Popup>
+                                            <Typography variant="subtitle2" sx={{ fontWeight: 'bold' }}>
+                                                {post.title}
+                                            </Typography>
+                                            <Typography variant="body2" color="text.secondary">
+                                                {post.location.address}, {post.location.city}
+                                            </Typography>
+                                            <Typography variant="caption" display="block" sx={{ mt: 1 }}>
+                                                {post.description}
+                                            </Typography>
+                                        </Popup>
+                                    </Marker>
+                                );
+                            })}
+                        </MapContainer>
                     </Box>
                 </Grid>
             </Grid>
 
+            {/* Filter Modal */}
             <Modal
                 open={showFilterModal}
                 onClose={handleCloseModal}
@@ -95,7 +167,7 @@ function ExplorePage() {
                         <CRBSlider />
                     </Box>
 
-                    <Box sx={{ display: 'flex', justifyContent: 'flex-end', mt: 3}}>
+                    <Box sx={{ display: 'flex', justifyContent: 'flex-end', mt: 3 }}>
                         <Button onClick={handleCloseModal} variant="contained">
                             Done
                         </Button>
