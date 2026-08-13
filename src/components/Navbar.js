@@ -19,9 +19,10 @@ function Navbar() {
         <Link to="/" className="navbar-link">
           <Home size={18} /> Home
         </Link>
-        <Link to="/explore" className="navbar-link">
+        <Link to="/explorePage" className="navbar-link">
           <Compass size={18} /> Explore
-        </Link>
+        </Link>  
+        
       </div>
 
       <div className="navbar-account">

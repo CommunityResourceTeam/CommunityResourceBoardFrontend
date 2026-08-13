@@ -17,6 +17,8 @@ import Navbar from '../components/Navbar';
 import { Link } from 'react-router-dom';
 import { ArrowRight } from 'lucide-react';
 
+import { MOCK_POSTS } from '../components/mockPosts';
+
 // Proxy Component Imports
 import CRBSlider from '../components/CRBSlider';
 import CRBDatePicker from '../components/CRBDatePicker';
@@ -272,12 +274,15 @@ function App(props) {
           </section>
 
           <nav className="explore-header" aria-label="Explore actions">
-            <Link to="/explore" className="explore-link">
+            <Link to="/explorePage" className="explore-link">
               Explore All <ArrowRight size={18} />
-            </Link>
+            </Link> 
+            
           </nav>
           <main className="sketch-post-grid">
-            <CRBGrid />
+            {MOCK_POSTS.map((post) => (
+              <CRBPostCondensed key={post._id} post={post} />
+            ))}
           </main>
           <footer className="utility-bar">
             <CRBDialog />

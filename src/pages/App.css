@@ -136,7 +136,7 @@ dialog>article>form {
 
 .sketch-post-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+  grid-template-columns: repeat(3, 1fr);
   gap: 2rem;
   margin: 2rem auto;
   max-width: 1400px;
@@ -169,15 +169,6 @@ dialog>article>form {
 
 .explore-link:hover {
   text-decoration: underline;
-}
-
-.sketch-post-grid > * {
-  background-color: var(--color-ivory);
-  min-height: 280px;
-  border-radius: 12px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
 }
 
 .site-navbar {
