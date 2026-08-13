@@ -56,8 +56,6 @@ function PostsGrid() {
       <div style={{ minHeight: '100vh', width: '100%' }}>
           <Stack
           direction="row"
-          alignItems="center"
-          justifyContent="space-between"
           sx={{ width: '100%', mb: 2 }}
         >
           <Typography variant="h3" sx={{color: '#ED9C40'}}>Your Post</Typography>
@@ -154,7 +152,7 @@ function TabPanel(props) {
     >
       {value === index && (
         <Box sx={{ p: 3 }}>
-          <Typography>{children}</Typography>
+          {children}
         </Box>
       )}
     </div>
