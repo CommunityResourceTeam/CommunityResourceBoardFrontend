@@ -11,6 +11,7 @@ import Stack from "@mui/material/Stack";
 import CRBEmailInput from "../components/CRBEmailInput";
 import CRBZipcodeInput from '../components/CRBZipCodeInput';
 import CRBPasswordInput from "../components/CRBPasswordInput";
+import Navbar from "../components/Navbar";
 
 // Sign Up Name Input Field
 function SignUpName() {
@@ -62,38 +63,42 @@ const StackItem = styled(Paper)(({ theme }) => ({
 
 function SignUpStack() {
   return (
-    <Box sx={{ height: '100vh', width: '100%', bgcolor: '#FFFEF0', display: 'flex', justifyContent: 'center', alignItems: 'center', }}>
-      <Box sx={{ height: '75%', width: '40%', border: 10, borderRadius: '2em', borderColor: '#ED9C40', bgcolor: '#FFFEF0', display: 'flex', justifyContent: 'center', alignItems: 'center', }}>
-        <Stack 
-            direction="column"
-            spacing={0.5}
-            sx={{
-              justifyContent: "space-evenly",
-              alignItems: "center",
-              color: '#ED9C40',
-            }}
-        >
-          <Typography variant='h2'>Sign Up</Typography>
-          <StackItem> <SignUpName /> </StackItem>
-          <StackItem> <SignUpUsername /> </StackItem>
-          <StackItem> <CRBEmailInput /> </StackItem>
-          <StackItem> <CRBPasswordInput /> </StackItem>
-          <StackItem> <CRBZipcodeInput /> </StackItem>
-
-          <Button
-            variant="contained"
-            sx={{
-              fontSize: '100%',
-              ml: 10,
-              bgcolor: "#FAB2EA",
-              "&:hover": { bgcolor: "#ED9C40" }
-            }}
+    <>
+      <Navbar />
+      <Box sx={{ height: '100vh', width: '100%', bgcolor: '#FFFEF0', display: 'flex', justifyContent: 'center', alignItems: 'center', }}>
+        <Box sx={{ height: '75%', width: '40%', border: 10, borderRadius: '2em', borderColor: '#ED9C40', bgcolor: '#FFFEF0', display: 'flex', justifyContent: 'center', alignItems: 'center', }}>
+          <Stack 
+              direction="column"
+              spacing={0.5}
+              sx={{
+                justifyContent: "space-evenly",
+                alignItems: "center",
+                color: '#ED9C40',
+              }}
           >
-            Sign Up
-          </Button>
-        </Stack>
+            <Typography variant='h2'>Sign Up</Typography>
+            <StackItem> <SignUpName /> </StackItem>
+            <StackItem> <SignUpUsername /> </StackItem>
+            <StackItem> <CRBEmailInput /> </StackItem>
+            <StackItem> <CRBPasswordInput /> </StackItem>
+            <StackItem> <CRBZipcodeInput /> </StackItem>
+
+            <Button
+              href="/explorePage"
+              variant="contained"
+              sx={{
+                fontSize: '100%',
+                ml: 10,
+                bgcolor: "#FAB2EA",
+                "&:hover": { bgcolor: "#ED9C40" }
+              }}
+            >
+              Sign Up
+            </Button>
+          </Stack>
+        </Box>
       </Box>
-    </Box>
+    </>
   );
 }
 
