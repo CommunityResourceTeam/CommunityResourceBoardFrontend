@@ -5,6 +5,7 @@ import './index.css';
 import App from './pages/App';
 import Login from './pages/Login';
 import SignUp from './pages/SignUp';
+import Setting from './pages/Setting';
 import reportWebVitals from './reportWebVitals';
 import ExplorePage from './pages/ExplorePage';
 
@@ -25,6 +26,14 @@ const router = createBrowserRouter([
     path: "signup",
     element: <SignUp />
   },
+    path: "/posts",
+    element: <Setting />
+  },
+  {
+    path: "/setting",
+    element: <Setting />
+  },
+  {
     path: "/explorePage",
     element: <ExplorePage />
   }

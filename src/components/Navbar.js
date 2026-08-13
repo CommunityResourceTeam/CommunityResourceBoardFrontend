@@ -38,7 +38,7 @@ function Navbar() {
 
       <div className="navbar-account">
         <span className="navbar-username">{loggedInUser || "Name"}</span>
-        <Link to="/settings" className="navbar-settings-btn" aria-label="Settings">
+        <Link to="/setting" className="navbar-settings-btn" aria-label="Settings">
           <Settings size={20} />
         </Link>
       </div>
