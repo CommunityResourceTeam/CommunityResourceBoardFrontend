@@ -26,6 +26,7 @@ import CRBPostCondensed from '../components/CRBPostCondensed';
 import CRBEmailInput from '../components/CRBEmailInput'
 import CRBPasswordInput from '../components/CRBPasswordInput'
 import CRBZipCodeInput from '../components/CRBZipCodeInput'
+import Navbar from '../components/Navbar';
 
 // Posts Grid Layout
 const GridItem = styled(Paper)(({ theme }) => ({
@@ -183,38 +184,41 @@ export default function Setting() {
 
   return (
     // Overall Box
-    <Box
-      sx={{ flexGrow: 1, display: 'flex', height: 'auto', width: 'auto'}}
-    >
-      {/* The Tabs */}
-        <Tabs
-          orientation="vertical"
-          variant="scrollable"
-          value={value}
-          onChange={handleChange}
-          aria-label="Vertical tabs example"
-          sx={{
-              bgcolor: '#FFFEF0',
-              borderRight: 10,
-              borderColor: '#ED9C40',
-              width: 180,
-              minHeight: '100vh',
-              flexShrink: 0
-            }}
-        >
-          {/* Create/Delete them here (Connected to the Paths) */}
-          <Tab label="Posts" />
-          <Tab label="Setting" />
-        </Tabs>
-      {/* The Tab Panels (Create/Delete them here [Connected to The Tabs]) */}
-        <Box sx={{bgcolor: '#FFFEF0', display: 'flex', width: '100%', justifyContent: "space-evenly", alignItems: "center"}}>  
-          <TabPanel value={value} index={0}>
-            <PostsGrid />
-          </TabPanel>
-          <TabPanel value={value} index={1}>
-            <SettingStack />
-          </TabPanel>
+    <>
+      <Navbar />
+      <Box
+        sx={{ flexGrow: 1, display: 'flex', height: 'auto', width: 'auto', pt: 0}}
+      >
+        {/* The Tabs */}
+          <Tabs
+            orientation="vertical"
+            variant="scrollable"
+            value={value}
+            onChange={handleChange}
+            aria-label="Vertical tabs example"
+            sx={{
+                bgcolor: '#FFFEF0',
+                borderRight: 10,
+                borderColor: '#ED9C40',
+                width: 180,
+                minHeight: '100vh',
+                flexShrink: 0
+              }}
+          >
+            {/* Create/Delete them here (Connected to the Paths) */}
+            <Tab label="Posts" />
+            <Tab label="Setting" />
+          </Tabs>
+        {/* The Tab Panels (Create/Delete them here [Connected to The Tabs]) */}
+          <Box sx={{bgcolor: '#FFFEF0', display: 'flex', width: '100%', justifyContent: "space-evenly", alignItems: "center"}}>  
+            <TabPanel value={value} index={0}>
+              <PostsGrid />
+            </TabPanel>
+            <TabPanel value={value} index={1}>
+              <SettingStack />
+            </TabPanel>
+          </Box>
         </Box>
-      </Box>
+      </>
   );
 }
