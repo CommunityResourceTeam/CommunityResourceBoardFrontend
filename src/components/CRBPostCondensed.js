@@ -56,9 +56,9 @@ function CRBPostCondensed({ post }) {
   return (
     <Card 
       sx={{ 
-        maxWidth: 340,         // Limits card width
+        maxWidth: 340,
         width: '100%', 
-        mx: 'auto',            // Centers card in narrow column
+        mx: 'auto',
         mb: 1.5, 
         borderRadius: 2, 
         boxShadow: '0 2px 8px rgba(0,0,0,0.08)',
