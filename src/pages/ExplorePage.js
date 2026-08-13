@@ -2,10 +2,29 @@ import React, { useState } from 'react';
 import { Box, Grid, Modal, Typography, Button, Stack } from '@mui/material';
 import { useSearchParams } from 'react-router-dom';
 
+// Leaflet Core & React Leaflet Imports
+import { MapContainer, TileLayer, Marker, Popup } from 'react-leaflet';
+import L from 'leaflet';
+import 'leaflet/dist/leaflet.css';
+
+// Leaflet Marker Icon Assets
+import markerIcon2x from 'leaflet/dist/images/marker-icon-2x.png';
+import markerIcon from 'leaflet/dist/images/marker-icon.png';
+import markerShadow from 'leaflet/dist/images/marker-shadow.png';
+
+// Local Component Imports
 import CRBPostCondensed from '../components/CRBPostCondensed';
 import CRBTagSelect from '../components/CRBTagSelect';
 import CRBSlider from '../components/CRBSlider';
 import { MOCK_POSTS } from '../components/mockPosts';
+
+// Fix missing default marker icon issue in React Leaflet builds
+delete L.Icon.Default.prototype._getIconUrl;
+L.Icon.Default.mergeOptions({
+    iconUrl: markerIcon,
+    iconRetinaUrl: markerIcon2x,
+    shadowUrl: markerShadow,
+});
 
 const modalStyle = {
     position: 'absolute',
@@ -18,6 +37,9 @@ const modalStyle = {
     boxShadow: 24,
     p: 4,
 };
+
+// Default map center coordinates (Seattle)
+const SEATTLE_CENTER = [47.6062, -122.3321];
 
 function ExplorePage() {
     const [searchParams, setSearchParams] = useSearchParams();
@@ -48,7 +70,7 @@ function ExplorePage() {
         <Box sx={{ p: 2 }}>
             <Grid container spacing={2}>
                 {/* Left Side Column: Filters, Search & Cards */}
-                <Grid item xs={12} md={5} lg={4}>
+                <Grid size={{ xs: 12, md: 5, lg: 4 }}>
                     <form onSubmit={handleSearchSubmit}>
                         <input 
                             type="text"
@@ -79,10 +101,52 @@ function ExplorePage() {
                 </Grid>
 
                 {/* Right Side Column: Map View */}
-                <Grid item xs={12} md={7} lg={8}>
-                    <Box sx={{ height: '100%', minHeight: '500px', border: '1px solid #ccc', p: 2 }}>
-                        <h2>Map View</h2>
-                        <p>(React Leaflet Map component will render here using post.location.coordinates)</p>
+                <Grid size={{ xs: 12, md: 7, lg: 8 }}>
+                    <Box 
+                        sx={{ 
+                            height: 'calc(100vh - 100px)', 
+                            minHeight: '500px', 
+                            border: '1px solid #ccc',
+                            borderRadius: 2,
+                            overflow: 'hidden',
+                            '& .leaflet-container': {
+                                height: '100%',
+                                width: '100%',
+                                zIndex: 1
+                            }
+                        }}
+                    >
+                        <MapContainer 
+                            center={SEATTLE_CENTER} 
+                            zoom={13} 
+                            scrollWheelZoom={true}
+                        >
+                            <TileLayer
+                                attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+                                url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
+                            />
+                            {posts.map((post) => {
+                                const { latitude, longitude } = post.location.coordinates;
+                                return (
+                                    <Marker 
+                                        key={post._id} 
+                                        position={[latitude, longitude]}
+                                    >
+                                        <Popup>
+                                            <Typography variant="subtitle2" sx={{ fontWeight: 'bold' }}>
+                                                {post.title}
+                                            </Typography>
+                                            <Typography variant="body2" color="text.secondary">
+                                                {post.location.address}, {post.location.city}
+                                            </Typography>
+                                            <Typography variant="caption" display="block" sx={{ mt: 1 }}>
+                                                {post.description}
+                                            </Typography>
+                                        </Popup>
+                                    </Marker>
+                                );
+                            })}
+                        </MapContainer>
                     </Box>
                 </Grid>
             </Grid>
