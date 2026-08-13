@@ -88,7 +88,7 @@ function ExplorePage() {
     }
   };
 
-  // 🔍 FILTERING LOGIC: Syncs cards in left column AND map pins simultaneously
+  // FILTERING LOGIC: Syncs cards in left column AND map pins simultaneously
   const filteredPosts = useMemo(() => {
     return MOCK_POSTS.filter((post) => {
       // 1. Title Search Filter
