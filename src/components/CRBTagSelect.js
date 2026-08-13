@@ -1,37 +1,40 @@
-import Chip from '@mui/material/Chip';
-import Stack from '@mui/material/Stack';
+import React from 'react';
+import { Box, Chip } from '@mui/material';
 
-export default function CRBTagSelect() {
-  const handleClick = () => {
-    console.info('You clicked the Chip.');
-  };
+const ALL_TAGS = [
+  "Food Assistance",
+  "Free",
+  "Healthcare",
+  "Shelter",
+  "Education",
+  "Legal Services",
+  "Mobile Service",
+  "Youth"
+];
 
+export default function CRBTagSelect({ selectedTag, onSelectTag }) {
   return (
-    <Stack direction="row" spacing={1}>
-      <Chip label="Child Care" onClick={handleClick} 
-        style={{backgroundColor: "pink", fontWeight: 'bolder'}}
-      />
-      <Chip label="Free" onClick={handleClick}
-        style={{backgroundColor: "pink", fontWeight: 'bolder'}}
-      />      
-      <Chip label="Food Resources" onClick={handleClick}
-        style={{backgroundColor: "pink", fontWeight: 'bolder'}}
-      />
-      <Chip label="Health Care" onClick={handleClick} 
-        style={{backgroundColor: "pink", fontWeight: 'bolder'}}
-      />
-      <Chip label="Clothing" onClick={handleClick}
-        style={{backgroundColor: "pink", fontWeight: 'bolder'}}
-      />      
-      <Chip label="Community Safety" onClick={handleClick}
-        style={{backgroundColor: "pink", fontWeight: 'bolder'}}
-      />
-      <Chip label="Entertainment" onClick={handleClick}
-        style={{backgroundColor: "pink", fontWeight: 'bolder'}}
-      />      
-      <Chip label="Transportation" onClick={handleClick}
-        style={{backgroundColor: "pink", fontWeight: 'bolder'}}
-      />      
-    </Stack>
+    <Box sx={{ display: 'flex', gap: 1, flexWrap: 'wrap' }}>
+      {ALL_TAGS.map((tag) => {
+        const isSelected = selectedTag === tag;
+        return (
+          <Chip
+            key={tag}
+            label={tag}
+            size="small"
+            onClick={() => onSelectTag(isSelected ? '' : tag)} // Toggle tag selection
+            sx={{
+              bgcolor: isSelected ? '#ED9C40' : 'pink', // Golden Apricot when selected
+              color: isSelected ? '#FFFFFF' : '#333333',
+              fontWeight: 600,
+              cursor: 'pointer',
+              '&:hover': {
+                bgcolor: isSelected ? '#d8872e' : 'pink',
+              }
+            }}
+          />
+        );
+      })}
+    </Box>
   );
 }
