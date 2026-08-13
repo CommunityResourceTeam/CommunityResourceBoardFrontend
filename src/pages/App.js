@@ -4,7 +4,6 @@ import MessageForm from '../components/MessageForm';
 import AccountManagement from '../components/AccountManagement';
 
 import './App.css';
-import LogoImage from '../secret-messages-logo.png';
 import MessagesContext from '../contexts/MessagesContext';
 import AccountContext from '../contexts/AccountContext';
 
@@ -13,13 +12,17 @@ import '@fontsource/roboto/400.css';
 import '@fontsource/roboto/500.css';
 import '@fontsource/roboto/700.css';
 
+import Navbar from '../components/Navbar';
+
+import { Link } from 'react-router-dom';
+import { ArrowRight } from 'lucide-react';
+
 // Proxy Component Imports
 import CRBPostExpanded from '../components/CRBPostExpanded';
 import CRBSlider from '../components/CRBSlider';
 import CRBDatePicker from '../components/CRBDatePicker';
 import CRBGrid from '../components/CRBGrid';
 import CRBTagSelect from '../components/CRBTagSelect';
-import CRBTagPicker from '../components/CRBTagPicker';
 import CRBDateTimePicker from '../components/CRBDateTimePicker';
 import CRBTimePicker from '../components/CRBTimePicker';
 import CRBProfileUpload from '../components/CRBProfileUpload';
@@ -290,7 +293,7 @@ function App(props) {
     else {
       getMessages("false");
     }
-  }, [props, loggedInUser]); // This will activate any time App itself gets re-rendered
+  }, [props, loggedInUser]);
 
   useEffect(() => {
     loadLocalAccountData();
@@ -299,6 +302,7 @@ function App(props) {
   return (
     <AccountContext.Provider value={{loggedInUser, signupUser, loginUser, logoutUser}}>
       <MessagesContext.Provider value={{messages, newMessage, getMessages, updateMessage, deleteMessage}}>
+      <Navbar />
         <section className="sketch-container">    
 
           <header className="sketch-header">
@@ -309,7 +313,6 @@ function App(props) {
             <p className="section-label">Tags</p>
             <nav className="tags-column">
               <CRBTagSelect />
-              <CRBTagPicker />
             </nav>
             <button type="button" className="more-tags-btn">More Tags</button>
           </section>
@@ -325,10 +328,10 @@ function App(props) {
           </section>
 
           <nav className="explore-header" aria-label="Explore actions">
-            <CRBButtonPrimary />
+            <Link to="/explore" className="explore-link">
+              Explore All <ArrowRight size={18} />
+            </Link>
           </nav>
-          /* Post Grid */
-
           <main className="sketch-post-grid">
             <button onClick={() => setOpen(true)}>View Post Details</button>
             <CRBPostExpanded 
@@ -336,6 +339,7 @@ function App(props) {
               handleClose={() => setOpen(false)} 
               post={MOCK_POST} 
             />
+            <CRBGrid />
           </main>
           <footer className="utility-bar">
             <CRBDialog />
