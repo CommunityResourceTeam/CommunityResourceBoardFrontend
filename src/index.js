@@ -23,6 +23,8 @@ const router = createBrowserRouter([
   {
     path: "/setting",
     element: <Setting />
+  },
+  {
     path: "/explorePage",
     element: <ExplorePage />
   }
