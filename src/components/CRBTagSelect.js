@@ -8,12 +8,30 @@ export default function CRBTagSelect() {
 
   return (
     <Stack direction="row" spacing={1}>
-      <Chip label="Food Bank" onClick={handleClick} 
-        style={{backgroundColor: "red", fontWeight: 'bolder'}}
+      <Chip label="Child Care" onClick={handleClick} 
+        style={{backgroundColor: "pink", fontWeight: 'bolder'}}
       />
-      <Chip label="Free" variant="outlined" onClick={handleClick}
-        style={{backgroundColor: "blue"}}
+      <Chip label="Free" onClick={handleClick}
+        style={{backgroundColor: "pink", fontWeight: 'bolder'}}
+      />      
+      <Chip label="Food Resources" onClick={handleClick}
+        style={{backgroundColor: "pink", fontWeight: 'bolder'}}
       />
+      <Chip label="Health Care" onClick={handleClick} 
+        style={{backgroundColor: "pink", fontWeight: 'bolder'}}
+      />
+      <Chip label="Clothing" onClick={handleClick}
+        style={{backgroundColor: "pink", fontWeight: 'bolder'}}
+      />      
+      <Chip label="Community Safety" onClick={handleClick}
+        style={{backgroundColor: "pink", fontWeight: 'bolder'}}
+      />
+      <Chip label="Entertainment" onClick={handleClick}
+        style={{backgroundColor: "pink", fontWeight: 'bolder'}}
+      />      
+      <Chip label="Transportation" onClick={handleClick}
+        style={{backgroundColor: "pink", fontWeight: 'bolder'}}
+      />      
     </Stack>
   );
 }
