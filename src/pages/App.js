@@ -14,6 +14,8 @@ import '@fontsource/roboto/700.css';
 
 import Navbar from '../components/Navbar';
 
+import { useNavigate } from 'react-router-dom';
+
 import { Link } from 'react-router-dom';
 import { ArrowRight } from 'lucide-react';
 
@@ -91,6 +93,14 @@ function App(props) {
   const [loggedInUser, setLoggedInUser] = useState("");
   const [messages, showMessages] = useState([]);
   const [isSecret, setSecret] = useState(false);
+
+  const navigate = useNavigate();
+  const [searchTerm, setSearchTerm] = useState("");
+
+  function handleSearchSubmit(e) {
+    e.preventDefault();
+    navigate(`/explorePage?q=${encodeURIComponent(searchTerm)}`);
+  }
 
   async function signupUser(user) {
     try {
@@ -264,13 +274,17 @@ function App(props) {
           </section>
 
           <section className="sketch-search-section">
-            <label htmlFor="homepage-search" className="sr-only">Search Posts</label>
-            <input 
-              id="homepage-search"
-              type="text" 
-              placeholder="Search Bar" 
-              className="search-input" 
-            />
+            <form onSubmit={handleSearchSubmit} className="search-form">
+              <label htmlFor="homepage-search" className="sr-only">Search Posts</label>
+              <input 
+                id="homepage-search"
+                type="text" 
+                placeholder="Search Bar" 
+                className="search-input" 
+                value={searchTerm}
+                onChange={(e) => setSearchTerm(e.target.value)}
+              />
+            </form>
           </section>
 
           <nav className="explore-header" aria-label="Explore actions">
