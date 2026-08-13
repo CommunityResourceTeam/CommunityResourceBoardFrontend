@@ -4,7 +4,7 @@ import MessageForm from '../components/MessageForm';
 import AccountManagement from '../components/AccountManagement';
 
 import './App.css';
-import LogoImage from '../secret-messages-logo.png';
+import LogoImage from '../Primary_Logo_ResourceNest.png';
 import MessagesContext from '../contexts/MessagesContext';
 import AccountContext from '../contexts/AccountContext';
 
@@ -35,6 +35,9 @@ import CRBReportMenu from '../components/CRBReportMenu';
 import CRBPasswordInput from '../components/CRBPasswordInput';
 import CRBEmailInput from '../components/CRBEmailInput';
 import CRBZipCodeInput from '../components/CRBZipCodeInput';
+
+//import lucide icons
+import { Home, Compass, Settings } from 'lucide-react';
 
 const hostURL = ((process.env.NODE_ENV === "production")
                 ? "https://cfa-summer26-l10-weihua-api.onrender.com"
@@ -243,6 +246,27 @@ function App(props) {
   return (
     <AccountContext.Provider value={{loggedInUser, signupUser, loginUser, logoutUser}}>
       <MessagesContext.Provider value={{messages, newMessage, getMessages, updateMessage, deleteMessage}}>
+      <nav className="site-navbar">
+        <div className="navbar-logo">
+          <img src={LogoImage} alt="ResourceNest" className="navbar-logo-img" />
+          <span className="navbar-logo-text">ResourceNest</span>
+        </div>
+        <div className="navbar-links">
+          <a href="/" className="navbar-link">
+            <Home size={18} /> Home
+          </a>
+          <a href="/explore" className="navbar-link">
+            <Compass size={18} /> Explore
+          </a>
+        </div>
+
+        <div className="navbar-account">
+          <span className="navbar-username">{loggedInUser || "Name"}</span>
+          <button type="button" className="navbar-settings-btn" aria-label="Settings">
+            <Settings size={20} />
+          </button>
+        </div>
+      </nav>
         <section className="sketch-container">    
 
           <header className="sketch-header">
@@ -253,7 +277,6 @@ function App(props) {
             <p className="section-label">Tags</p>
             <nav className="tags-column">
               <CRBTagSelect />
-              <CRBTagPicker />
             </nav>
             <button type="button" className="more-tags-btn">More Tags</button>
           </section>
@@ -271,10 +294,8 @@ function App(props) {
           <nav className="explore-header" aria-label="Explore actions">
             <CRBButtonPrimary />
           </nav>
-          /* Post Grid */
-
           <main className="sketch-post-grid">
-            
+            <CRBGrid />
           </main>
           <footer className="utility-bar">
             <CRBDialog />

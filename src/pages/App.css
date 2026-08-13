@@ -11,6 +11,7 @@ body {
   background-size: 95px;
   background-repeat: repeat;
   letter-spacing: 0.06ch;
+  background-color: var(--color-ivory);
 }
 
 #root {
@@ -176,19 +177,6 @@ dialog>article>form {
   width: 100%;
 }
 
-.more-tags-btn {
-  width: 40%;
-  padding: 8px;
-  border: 1.5px solid #000000;
-  background-color: white;
-  border-radius: 4px;
-  cursor: pointer;
-  font-weight: 500;
-}
-
-.more-tags-btn:hover {
-  background-color: rgba(0, 0, 0, 0.04);
-}
 
 /*Search CSS styling*/
 .sketch-search-section {
@@ -201,7 +189,7 @@ dialog>article>form {
   width: 100%;
   max-width: 500px;
   padding: 10px 14px;
-  border: 1.5px solid #000000;
+  border: 1.5px solid var(--color-apricot);
   border-radius: 4px;
   text-align: center;
   background-color: transparent;
@@ -233,4 +221,155 @@ dialog>article>form {
   flex-wrap: wrap;
   gap: 10px;
   justify-content: center;
+}
+
+.sketch-container {
+  max-width: 1600px;
+  width: 95%;
+  margin: 2rem auto;
+  background-color: var(--color-ivory);
+}
+
+.sketch-header {
+  text-align: center;
+  margin-bottom: 1.5rem;
+}
+
+.sketch-header h1 {
+  font-size: 5rem;
+  font-weight: 700;
+  margin: 0;
+}
+
+.sketch-post-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+  gap: 2rem;
+  margin: 2rem auto;
+  max-width: 1400px;
+  width: 100%;
+  justify-content: center;
+}
+
+@media screen and (max-width: 980px) {
+  .sketch-post-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+:root {
+  --color-ivory: #FFFEF0;
+  --color-apricot: #ED9C40;
+  --color-blush: #FAB2EA;
+}
+
+.more-tags-btn {
+  background-color: var(--color-apricot);
+  border: 1.5px solid var(--color-apricot);
+  color: #000;
+  width: 40%;
+  padding: 8px;
+  border-radius: 4px;
+  cursor: pointer;
+  font-weight: 500;
+}
+
+.more-tags-btn:hover {
+  background-color: #d98a2e;
+}
+
+.explore-header a,
+.explore-header button {
+  color: var(--color-blush);
+}
+
+.explore-header svg,
+.explore-header path {
+  stroke: var(--color-blush);
+}
+
+.sketch-post-grid > * {
+  background-color: var(--color-ivory);
+  min-height: 280px;
+  border-radius: 12px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.site-navbar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background-color: #fff;
+  padding: 1rem 2rem;
+  border-radius: 8px;
+  margin-bottom: 1.5rem;
+}
+
+.navbar-links {
+  display: flex;
+  align-items: center;
+  gap: 2rem;
+  margin-right: auto;
+  margin-left: 3rem;
+}
+
+.navbar-link {
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+  font-weight: 700;
+  font-size: 1.1rem;
+  color: #000;
+  text-decoration: none;
+}
+
+.navbar-link:hover {
+  color: var(--color-apricot);
+}
+
+.navbar-account {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+}
+
+.navbar-username {
+  font-weight: 700;
+  font-size: 1.1rem;
+}
+
+.navbar-avatar {
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  background-color: #000;
+}
+
+.navbar-settings-btn {
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 0.25rem;
+  display: flex;
+  align-items: center;
+  color: #000;
+}
+
+.navbar-logo {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.navbar-logo-img {
+  height: 40px;
+  width: auto;
+}
+
+.navbar-logo-text {
+  font-weight: 700;
+  color: #0a2a48;
+  font-size: 1rem;
 }
