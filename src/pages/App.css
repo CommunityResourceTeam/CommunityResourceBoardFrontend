@@ -14,7 +14,17 @@ body {
   background-color: var(--color-ivory);
 }
 
-/* ================== Modal styles ================== */
+.sketch-header {
+  text-align: center;
+  margin: 2rem 0 2.5rem;
+}
+
+.sketch-header h1 {
+  font-size: 2.75rem;
+  font-weight: 700;
+  color: black;           
+  margin: 0;
+}
 
 dialog>article {
   background-color: #0a2a48;
@@ -49,6 +59,22 @@ dialog>article>form {
 }
 
 
+.more-tags-btn {
+  background-color: var(--color-apricot);
+  border: 1.5px solid var(--color-apricot);
+  color: #000;
+  border-radius: 4px;
+  cursor: pointer;
+  font-weight: 500;
+  width: auto;
+  padding: 8px 24px;
+  font-size: 0.9rem;
+}
+
+.more-tags-btn:hover {
+  background-color: #d98a2e;
+}
+
 /*Search CSS styling*/
 .sketch-search-section {
   display: flex;
@@ -64,6 +90,12 @@ dialog>article>form {
   border-radius: 4px;
   text-align: center;
   background-color: transparent;
+}
+
+.search-input:focus {
+  outline: none;
+  border-color: var(--color-blush);
+  box-shadow: 0 0 0 3px rgba(250, 178, 234, 0.25);
 }
 
 .sr-only {
@@ -101,17 +133,6 @@ dialog>article>form {
   background-color: var(--color-ivory);
 }
 
-.sketch-header {
-  text-align: center;
-  margin-bottom: 1.5rem;
-}
-
-.sketch-header h1 {
-  font-size: 5rem;
-  font-weight: 700;
-  margin: 0;
-}
-
 .sketch-post-grid {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
@@ -134,20 +155,6 @@ dialog>article>form {
   --color-blush: #FAB2EA;
 }
 
-.more-tags-btn {
-  background-color: var(--color-apricot);
-  border: 1.5px solid var(--color-apricot);
-  color: #000;
-  width: 40%;
-  padding: 8px;
-  border-radius: 4px;
-  cursor: pointer;
-  font-weight: 500;
-}
-
-.more-tags-btn:hover {
-  background-color: #d98a2e;
-}
 
 .explore-link {
   display: inline-flex;
@@ -239,6 +246,6 @@ dialog>article>form {
 
 .navbar-logo-text {
   font-weight: 700;
-  color: #0a2a48;
+  color: #000000;
   font-size: 1rem;
 }
