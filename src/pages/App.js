@@ -37,7 +37,6 @@ import CRBPasswordInput from '../components/CRBPasswordInput';
 import CRBEmailInput from '../components/CRBEmailInput';
 import CRBZipCodeInput from '../components/CRBZipCodeInput';
 
-// EXERCISE 4.1
 const hostURL = ((process.env.NODE_ENV === "production")
                 ? "https://cfa-summer26-l10-weihua-api.onrender.com"
                 : "https://127.0.0.1:3002");
@@ -300,47 +299,49 @@ function App(props) {
   return (
     <AccountContext.Provider value={{loggedInUser, signupUser, loginUser, logoutUser}}>
       <MessagesContext.Provider value={{messages, newMessage, getMessages, updateMessage, deleteMessage}}>
-        <header>
-          <nav id="branding">
-            <CRBDatePicker />
-            <CRBTagSelect />
-            <CRBDialog />
-            <CRBTagPicker />
-            <CRBSlider />
-            <img id="logo" src={LogoImage} alt="Secret Messages App" />
-            <h1 id="title">Secret Messages</h1>
-            <CRBCheckBox />
-            <CRBProfileUpload />
-            <CRBProfile />
-            <CRBReportMenu />
+        <section className="sketch-container">    
+
+          <header className="sketch-header">
+              <h1>Welcome to ResourceNest!</h1>
+          </header>
+
+          <section className="sketch-tags-section">
+            <p className="section-label">Tags</p>
+            <nav className="tags-column">
+              <CRBTagSelect />
+              <CRBTagPicker />
+            </nav>
+            <button type="button" className="more-tags-btn">More Tags</button>
+          </section>
+
+          <section className="sketch-search-section">
+            <label htmlFor="homepage-search" className="sr-only">Search Posts</label>
+            <input 
+              id="homepage-search"
+              type="text" 
+              placeholder="Search Bar" 
+              className="search-input" 
+            />
+          </section>
+
+          <nav className="explore-header" aria-label="Explore actions">
+            <CRBButtonPrimary />
           </nav>
-          <CRBZipCodeInput />
-          <CRBEmailInput />
-          <CRBPasswordInput />
-          <CRBButtonPrimary />
-          <CRBButtonSecondary />
-          <AccountManagement />
-          <CRBAccountCondensed />
-        </header>
-        <div id="main">
-          <CRBPopUpBox />
-          <CRBPostCondensed />
-          <CRBDateTimePicker />
-          <button onClick={() => setOpen(true)}>View Post Details</button>
+          /* Post Grid */
+
+          <main className="sketch-post-grid">
+            <button onClick={() => setOpen(true)}>View Post Details</button>
             <CRBPostExpanded 
               open={open} 
               handleClose={() => setOpen(false)} 
               post={MOCK_POST} 
             />
-          <CRBTimePicker />
-          <CRBMenu />
-          <CRBGrid />
-          <MessagesDisplay secrets={props.secrets} />
-          <MessageForm />
-        </div>
-        <footer>
-            <p>&copy; 2024 Secret Messages</p>
-        </footer>
+          </main>
+          <footer className="utility-bar">
+            <CRBDialog />
+          </footer>
+        </section>
+
       </MessagesContext.Provider>
     </AccountContext.Provider>
   );
