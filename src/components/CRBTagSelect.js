@@ -1,37 +1,46 @@
-import Chip from '@mui/material/Chip';
-import Stack from '@mui/material/Stack';
+import React from 'react';
+import { Box, Chip } from '@mui/material';
 
-export default function CRBTagSelect() {
-  const handleClick = () => {
-    console.info('You clicked the Chip.');
-  };
+export default function CRBTagSelect({ tags = [] }) {
+  const defaultTags = [
+    { id: '1', name: 'Child Care', color: '#ffb6c1' },
+    { id: '2', name: 'Free', color: '#ffb6c1' },
+    { id: '3', name: 'Food Resources', color: '#ffb6c1' },
+    { id: '4', name: 'Health Care', color: '#ffb6c1' },
+    { id: '5', name: 'Clothing', color: '#ffb6c1' },
+    { id: '6', name: 'Community Safety', color: '#ffb6c1' },
+    { id: '7', name: 'Entertainment', color: '#ffb6c1' },
+    { id: '8', name: 'Transportation', color: '#ffb6c1' }
+  ];
+
+  const displayTags = tags.length > 0 ? tags : defaultTags;
 
   return (
-    <Stack direction="row" spacing={1}>
-      <Chip label="Child Care" onClick={handleClick} 
-        style={{backgroundColor: "pink", fontWeight: 'bolder'}}
-      />
-      <Chip label="Free" onClick={handleClick}
-        style={{backgroundColor: "pink", fontWeight: 'bolder'}}
-      />      
-      <Chip label="Food Resources" onClick={handleClick}
-        style={{backgroundColor: "pink", fontWeight: 'bolder'}}
-      />
-      <Chip label="Health Care" onClick={handleClick} 
-        style={{backgroundColor: "pink", fontWeight: 'bolder'}}
-      />
-      <Chip label="Clothing" onClick={handleClick}
-        style={{backgroundColor: "pink", fontWeight: 'bolder'}}
-      />      
-      <Chip label="Community Safety" onClick={handleClick}
-        style={{backgroundColor: "pink", fontWeight: 'bolder'}}
-      />
-      <Chip label="Entertainment" onClick={handleClick}
-        style={{backgroundColor: "pink", fontWeight: 'bolder'}}
-      />      
-      <Chip label="Transportation" onClick={handleClick}
-        style={{backgroundColor: "pink", fontWeight: 'bolder'}}
-      />      
-    </Stack>
+    <Box
+      sx={{
+        display: 'flex',
+        flexWrap: 'wrap', 
+        gap: 1,
+        width: '100%',
+        maxWidth: '100%',
+        my: 1,
+      }}
+    >
+      {displayTags.map((tag) => (
+        <Chip
+          key={tag.id || tag._id}
+          label={tag.name}
+          clickable
+          sx={{
+            backgroundColor: tag.color || '#ffb6c1',
+            fontWeight: 500,
+            fontSize: '0.8rem',
+            '&:hover': {
+              backgroundColor: '#ffa0b0',
+            },
+          }}
+        />
+      ))}
+    </Box>
   );
 }
