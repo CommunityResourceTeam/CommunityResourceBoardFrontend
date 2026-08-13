@@ -15,17 +15,14 @@ const router = createBrowserRouter([
     element: <App />,
   },
   {
-    path: "/secret",
-    element: <App secrets={true} />,
-  },
-  {
-    path: "login",
+    path: "/login",
     element: <Login />
   },
   {
-    path: "signup",
+    path: "/signup",
     element: <SignUp />
   },
+  {
     path: "/posts",
     element: <Setting />
   },
