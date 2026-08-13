@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useMemo } from 'react';
 import { Box, Grid, Modal, Typography, Button, Stack, Paper, TextField } from '@mui/material';
 import { useSearchParams } from 'react-router-dom';
 
@@ -20,16 +20,16 @@ import markerShadow from 'leaflet/dist/images/marker-shadow.png';
 // Local Component Imports
 import Navbar from '../components/Navbar';
 import CRBPostCondensed from '../components/CRBPostCondensed';
-import CRBPostExpanded from '../components/CRBPostExpanded'; // 👈 Imported Expanded Post Modal
+import CRBPostExpanded from '../components/CRBPostExpanded';
 import CRBTagSelect from '../components/CRBTagSelect';
 import CRBSlider from '../components/CRBSlider';
 import { MOCK_POSTS } from '../components/mockPosts';
 
 // Color Palette Constants
 const COLORS = {
-  background: '#FFFEF0', // Ivory (Background)
-  primary: '#ED9C40',    // Golden Apricot (Primary - 60%)
-  secondary: '#FAB2EA',  // Blush Pop (Secondary - 30%)
+  background: '#FFFEF0', // Ivory
+  primary: '#ED9C40',    // Golden Apricot
+  secondary: '#FAB2EA',  // Blush Pop
   darkText: '#333333',
 };
 
@@ -61,13 +61,14 @@ const SEATTLE_CENTER = [47.6062, -122.3321];
 
 function ExplorePage() {
   const [searchParams, setSearchParams] = useSearchParams();
-  const query = searchParams.get('query') || '';
+  const queryParam = searchParams.get('query') || searchParams.get('search') || '';
 
-  const [searchInput, setSearchInput] = useState(query);
-  const [appliedSearch, setAppliedSearch] = useState(query);
-  const [posts, setPosts] = useState(MOCK_POSTS);
+  // Input state for live typing & selected tag filter
+  const [searchInput, setSearchInput] = useState(queryParam);
+  const [appliedSearch, setAppliedSearch] = useState(queryParam);
+  const [selectedTag, setSelectedTag] = useState('');
 
-  // State to hold the post currently open in the expanded modal
+  // State for expanded post modal
   const [selectedPost, setSelectedPost] = useState(null);
 
   // Filter Modal state handlers
@@ -75,6 +76,7 @@ function ExplorePage() {
   const handleOpenModal = () => setShowFilterModal(true);
   const handleCloseModal = () => setShowFilterModal(false);
 
+  // Handle Search Submission
   const handleSearchSubmit = (e) => {
     if (e) e.preventDefault();
     setAppliedSearch(searchInput);
@@ -86,6 +88,23 @@ function ExplorePage() {
     }
   };
 
+  // 🔍 FILTERING LOGIC: Syncs cards in left column AND map pins simultaneously
+  const filteredPosts = useMemo(() => {
+    return MOCK_POSTS.filter((post) => {
+      // 1. Title Search Filter
+      const matchesTitle = post.title
+        .toLowerCase()
+        .includes(appliedSearch.toLowerCase().trim());
+
+      // 2. Selected Tag Filter
+      const matchesTag = selectedTag
+        ? post.tags?.some((t) => t.name.toLowerCase() === selectedTag.toLowerCase())
+        : true;
+
+      return matchesTitle && matchesTag;
+    });
+  }, [appliedSearch, selectedTag]);
+
   return (
     <Box sx={{ bgcolor: COLORS.background, minHeight: '100vh' }}>
       
@@ -94,7 +113,7 @@ function ExplorePage() {
         sx={{
           position: 'sticky',
           top: 0,
-          zIndex: 1100, // Keeps navbar above map controls
+          zIndex: 1100,
           bgcolor: COLORS.background,
           boxShadow: '0px 2px 8px rgba(0,0,0,0.06)',
         }}
@@ -106,10 +125,9 @@ function ExplorePage() {
       <Box sx={{ p: 3 }}>
         <Grid container spacing={3}>
           
-          {/* Left Side Column: Search, Tags, Filters & Resource Cards */}
+          {/* Left Side Column */}
           <Grid size={{ xs: 12, md: 5, lg: 4 }} sx={{ minWidth: 0, width: '100%' }}>
             
-            {/* Title above Search Bar */}
             <Typography
               variant="h4"
               component="h1"
@@ -123,7 +141,7 @@ function ExplorePage() {
               Explore Resources
             </Typography>
 
-            {/* Search Box Container */}
+            {/* Title Search Form */}
             <Paper
               elevation={0}
               component="form"
@@ -141,9 +159,13 @@ function ExplorePage() {
               <TextField
                 fullWidth
                 variant="standard"
-                placeholder="Search Seattle resources..."
+                placeholder="Search resources by title..."
                 value={searchInput}
-                onChange={(e) => setSearchInput(e.target.value)}
+                onChange={(e) => {
+                  setSearchInput(e.target.value);
+                  // Optional: Live search on type
+                  setAppliedSearch(e.target.value);
+                }}
                 slotProps={{
                   input: {
                     disableUnderline: true,
@@ -171,31 +193,15 @@ function ExplorePage() {
               </Button>
             </Paper>
 
-            {/* Tags Container */}
-            <Box
-              sx={{
-                my: 1.5,
-                width: '100%',
-                maxWidth: '100%',
-                '& .MuiStack-root': {
-                  flexWrap: 'wrap',
-                  rowGap: 1,
-                },
-                '& .MuiChip-root': {
-                  bgcolor: COLORS.secondary,
-                  color: COLORS.darkText,
-                  fontWeight: 600,
-                  border: 'none',
-                  '&:hover': {
-                    bgcolor: '#f793e2',
-                  }
-                }
-              }}
-            >
-              <CRBTagSelect />
+            {/* Tag Selection Row */}
+            <Box sx={{ my: 1.5, width: '100%' }}>
+              <CRBTagSelect 
+                selectedTag={selectedTag} 
+                onSelectTag={(tag) => setSelectedTag(tag)} 
+              />
             </Box>
 
-            {/* Filter & Sort Control Buttons */}
+            {/* Filter Controls */}
             <Box sx={{ display: 'flex', gap: 1.5, mb: 2 }}>
               <Button
                 variant="outlined"
@@ -216,23 +222,23 @@ function ExplorePage() {
                 More filters
               </Button>
 
-              <Button
-                variant="text"
-                endIcon={<SortIcon />}
-                sx={{
-                  color: COLORS.darkText,
-                  fontWeight: 'bold',
-                  borderRadius: 2,
-                  '&:hover': {
-                    bgcolor: 'rgba(250, 178, 234, 0.2)',
-                  }
-                }}
-              >
-                Sort by
-              </Button>
+              {(appliedSearch || selectedTag) && (
+                <Button
+                  variant="text"
+                  onClick={() => {
+                    setSearchInput('');
+                    setAppliedSearch('');
+                    setSelectedTag('');
+                    setSearchParams({});
+                  }}
+                  sx={{ color: COLORS.primary, fontWeight: 'bold' }}
+                >
+                  Clear Filters
+                </Button>
+              )}
             </Box>
 
-            {/* Resource Cards Stack */}
+            {/* Resource Cards Stack (Renders filtered list) */}
             <Stack
               spacing={2}
               sx={{
@@ -252,19 +258,25 @@ function ExplorePage() {
                 }
               }}
             >
-              {posts.map((post) => (
-                <Box 
-                  key={post._id} 
-                  onClick={() => setSelectedPost(post)} 
-                  sx={{ cursor: 'pointer' }}
-                >
-                  <CRBPostCondensed post={post} />
-                </Box>
-              ))}
+              {filteredPosts.length > 0 ? (
+                filteredPosts.map((post) => (
+                  <Box 
+                    key={post._id} 
+                    onClick={() => setSelectedPost(post)} 
+                    sx={{ cursor: 'pointer' }}
+                  >
+                    <CRBPostCondensed post={post} />
+                  </Box>
+                ))
+              ) : (
+                <Typography color="text.secondary" sx={{ p: 2, textAlign: 'center' }}>
+                  No resources found matching your search.
+                </Typography>
+              )}
             </Stack>
           </Grid>
 
-          {/* Right Side Column: Styled Interactive Map */}
+          {/* Right Side Column: Map synced directly with filteredPosts */}
           <Grid size={{ xs: 12, md: 7, lg: 8 }}>
             <Paper
               elevation={0}
@@ -286,14 +298,15 @@ function ExplorePage() {
             >
               <MapContainer
                 center={SEATTLE_CENTER}
-                zoom={13}
+                zoom={12}
                 scrollWheelZoom={true}
               >
                 <TileLayer
                   attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
                   url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
                 />
-                {posts.map((post) => {
+                {/* Pins render only for active filteredPosts */}
+                {filteredPosts.map((post) => {
                   const { latitude, longitude } = post.location.coordinates;
                   return (
                     <Marker
@@ -330,14 +343,14 @@ function ExplorePage() {
         </Grid>
       </Box>
 
-      {/* 3. Expanded Post Modal */}
+      {/* Expanded Post Modal */}
       <CRBPostExpanded 
         open={Boolean(selectedPost)} 
         handleClose={() => setSelectedPost(null)} 
         post={selectedPost} 
       />
 
-      {/* 4. Filter Options Modal */}
+      {/* Filter Options Modal */}
       <Modal
         open={showFilterModal}
         onClose={handleCloseModal}
