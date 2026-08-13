@@ -138,17 +138,11 @@ dialog>article>form {
 .sketch-post-grid {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
-  gap: 1rem;
-  margin: 2rem auto;
-  max-width: 1400px;
+  gap: 0.75rem;
+  margin: 0 auto 3rem;
+  max-width: 1100px;
   width: 100%;
-  justify-content: center;
-}
-
-@media screen and (max-width: 980px) {
-  .sketch-post-grid {
-    grid-template-columns: repeat(2, 1fr);
-  }
+  justify-items: center;
 }
 
 :root {
