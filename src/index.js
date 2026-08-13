@@ -4,6 +4,7 @@ import { createBrowserRouter, RouterProvider } from 'react-router-dom';
 import './index.css';
 import App from './pages/App';
 import reportWebVitals from './reportWebVitals';
+import ExplorePage from './pages/ExplorePage';
 
 const router = createBrowserRouter([
   {
@@ -14,6 +15,10 @@ const router = createBrowserRouter([
     path: "/secret",
     element: <App secrets={true} />,
   },
+  {
+    path: "/explorePage",
+    element: <ExplorePage />
+  }
 ]);
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
