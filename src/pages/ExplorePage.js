@@ -18,6 +18,7 @@ import markerIcon from 'leaflet/dist/images/marker-icon.png';
 import markerShadow from 'leaflet/dist/images/marker-shadow.png';
 
 // Local Component Imports
+import Navbar from '../components/Navbar';
 import CRBPostCondensed from '../components/CRBPostCondensed';
 import CRBTagSelect from '../components/CRBTagSelect';
 import CRBSlider from '../components/CRBSlider';
@@ -31,7 +32,7 @@ const COLORS = {
   darkText: '#333333',
 };
 
-// Custom Golden Apricot Map Marker Icon Setup
+// Custom Map Marker Icon Setup
 const customMarkerIcon = L.icon({
   iconUrl: markerIcon,
   iconRetinaUrl: markerIcon2x,
@@ -82,200 +83,233 @@ function ExplorePage() {
   };
 
   return (
-    <Box sx={{ bgcolor: COLORS.background, minHeight: '100vh', p: 3 }}>
-      <Grid container spacing={3}>
-        
-        {/* Left Side Column: Search, Tags, Filters & Resource Cards */}
-        <Grid size={{ xs: 12, md: 5, lg: 4 }} sx={{ minWidth: 0, width: '100%' }}>
+    <Box sx={{ bgcolor: COLORS.background, minHeight: '100vh' }}>
+      
+      {/* 1. Sticky Site Navbar Wrapper */}
+      <Box
+        sx={{
+          position: 'sticky',
+          top: 0,
+          zIndex: 1100, // Keeps navbar above map controls
+          bgcolor: COLORS.background,
+          boxShadow: '0px 2px 8px rgba(0,0,0,0.06)',
+        }}
+      >
+        <Navbar />
+      </Box>
+
+      {/* 2. Main Page Content Grid */}
+      <Box sx={{ p: 3 }}>
+        <Grid container spacing={3}>
           
-          {/* Pretty Search Box Container */}
-          <Paper
-            elevation={0}
-            component="form"
-            onSubmit={handleSearchSubmit}
-            sx={{
-              display: 'flex',
-              alignItems: 'center',
-              p: '4px 8px',
-              borderRadius: 3,
-              border: `2px solid ${COLORS.primary}`,
-              bgcolor: '#FFFFFF',
-              mb: 2,
-            }}
-          >
-            <TextField
-              fullWidth
-              variant="standard"
-              placeholder="Search Seattle resources..."
-              value={searchInput}
-              onChange={(e) => setSearchInput(e.target.value)}
-              InputProps={{
-                disableUnderline: true,
-                sx: { px: 1, fontSize: '0.95rem' }
-              }}
-            />
-            <Button
-              type="submit"
-              variant="contained"
-              disableElevation
+          {/* Left Side Column: Search, Tags, Filters & Resource Cards */}
+          <Grid size={{ xs: 12, md: 5, lg: 4 }} sx={{ minWidth: 0, width: '100%' }}>
+            
+            {/* Title above Search Bar */}
+            <Typography
+              variant="h4"
+              component="h1"
               sx={{
-                bgcolor: COLORS.primary,
-                color: '#FFFFFF',
-                borderRadius: 2,
-                px: 2,
-                py: 0.8,
                 fontWeight: 'bold',
-                '&:hover': {
-                  bgcolor: '#d8872e',
-                }
-              }}
-            >
-              <SearchIcon fontSize="small" />
-            </Button>
-          </Paper>
-
-          {/* Tags Container styled with Secondary Accent (Blush Pop) */}
-          <Box
-            sx={{
-              my: 1.5,
-              width: '100%',
-              maxWidth: '100%',
-              '& .MuiStack-root': {
-                flexWrap: 'wrap',
-                rowGap: 1,
-              },
-              '& .MuiChip-root': {
-                bgcolor: COLORS.secondary,
-                color: COLORS.darkText,
-                fontWeight: 600,
-                border: 'none',
-                '&:hover': {
-                  bgcolor: '#f793e2',
-                }
-              }
-            }}
-          >
-            <CRBTagSelect />
-          </Box>
-
-          {/* Filter & Sort Control Buttons */}
-          <Box sx={{ display: 'flex', gap: 1.5, mb: 2 }}>
-            <Button
-              variant="outlined"
-              startIcon={<FilterListIcon />}
-              onClick={handleOpenModal}
-              sx={{
-                borderColor: COLORS.primary,
                 color: COLORS.primary,
-                fontWeight: 'bold',
-                borderRadius: 2,
-                bgcolor: '#FFFFFF',
-                '&:hover': {
-                  borderColor: COLORS.primary,
-                  bgcolor: 'rgba(237, 156, 64, 0.08)',
-                }
+                mb: 2,
+                letterSpacing: '-0.5px'
               }}
             >
-              More filters
-            </Button>
+              Explore Resources
+            </Typography>
 
-            <Button
-              variant="text"
-              endIcon={<SortIcon />}
+            {/* Pretty Search Box Container */}
+            <Paper
+              elevation={0}
+              component="form"
+              onSubmit={handleSearchSubmit}
               sx={{
-                color: COLORS.darkText,
-                fontWeight: 'bold',
-                borderRadius: 2,
-                '&:hover': {
-                  bgcolor: 'rgba(250, 178, 234, 0.2)',
+                display: 'flex',
+                alignItems: 'center',
+                p: '4px 8px',
+                borderRadius: 3,
+                border: `2px solid ${COLORS.primary}`,
+                bgcolor: '#FFFFFF',
+                mb: 2,
+              }}
+            >
+              <TextField
+                fullWidth
+                variant="standard"
+                placeholder="Search Seattle resources..."
+                value={searchInput}
+                onChange={(e) => setSearchInput(e.target.value)}
+                slotProps={{
+                  input: {
+                    disableUnderline: true,
+                    sx: { px: 1, fontSize: '0.95rem' }
+                  }
+                }}
+              />
+              <Button
+                type="submit"
+                variant="contained"
+                disableElevation
+                sx={{
+                  bgcolor: COLORS.primary,
+                  color: '#FFFFFF',
+                  borderRadius: 2,
+                  px: 2,
+                  py: 0.8,
+                  fontWeight: 'bold',
+                  '&:hover': {
+                    bgcolor: '#d8872e',
+                  }
+                }}
+              >
+                <SearchIcon fontSize="small" />
+              </Button>
+            </Paper>
+
+            {/* Tags Container styled with Secondary Accent (Blush Pop) */}
+            <Box
+              sx={{
+                my: 1.5,
+                width: '100%',
+                maxWidth: '100%',
+                '& .MuiStack-root': {
+                  flexWrap: 'wrap',
+                  rowGap: 1,
+                },
+                '& .MuiChip-root': {
+                  bgcolor: COLORS.secondary,
+                  color: COLORS.darkText,
+                  fontWeight: 600,
+                  border: 'none',
+                  '&:hover': {
+                    bgcolor: '#f793e2',
+                  }
                 }
               }}
             >
-              Sort by
-            </Button>
-          </Box>
+              <CRBTagSelect />
+            </Box>
 
-          {/* Resource Cards Stack (Stretched & without nested inner scrollbars) */}
-          <Stack
-            spacing={2}
-            sx={{
-              width: '100%',
-              '& .MuiCard-root': {
-                maxWidth: '100% !important',
-                mx: '0 !important',
-                width: '100% !important',
-                borderRadius: 3,
-                border: `1px solid ${COLORS.secondary}`,
-                boxShadow: '0px 4px 12px rgba(237, 156, 64, 0.08)',
-                transition: 'transform 0.2s ease, box-shadow 0.2s ease',
-                '&:hover': {
-                  transform: 'translateY(-3px)',
-                  boxShadow: '0px 8px 20px rgba(237, 156, 64, 0.18)',
-                }
-              }
-            }}
-          >
-            {posts.map((post) => (
-              <CRBPostCondensed key={post._id} post={post} />
-            ))}
-          </Stack>
-        </Grid>
+            {/* Filter & Sort Control Buttons */}
+            <Box sx={{ display: 'flex', gap: 1.5, mb: 2 }}>
+              <Button
+                variant="outlined"
+                startIcon={<FilterListIcon />}
+                onClick={handleOpenModal}
+                sx={{
+                  borderColor: COLORS.primary,
+                  color: COLORS.primary,
+                  fontWeight: 'bold',
+                  borderRadius: 2,
+                  bgcolor: '#FFFFFF',
+                  '&:hover': {
+                    borderColor: COLORS.primary,
+                    bgcolor: 'rgba(237, 156, 64, 0.08)',
+                  }
+                }}
+              >
+                More filters
+              </Button>
 
-        {/* Right Side Column: Styled Interactive Map */}
-        <Grid size={{ xs: 12, md: 7, lg: 8 }}>
-          <Paper
-            elevation={0}
-            sx={{
-              height: 'calc(100vh - 100px)',
-              minHeight: '500px',
-              border: `2px solid ${COLORS.primary}`,
-              borderRadius: 4,
-              overflow: 'hidden',
-              boxShadow: '0px 6px 20px rgba(237, 156, 64, 0.12)',
-              position: 'sticky',
-              top: 24,
-              '& .leaflet-container': {
-                height: '100%',
+              <Button
+                variant="text"
+                endIcon={<SortIcon />}
+                sx={{
+                  color: COLORS.darkText,
+                  fontWeight: 'bold',
+                  borderRadius: 2,
+                  '&:hover': {
+                    bgcolor: 'rgba(250, 178, 234, 0.2)',
+                  }
+                }}
+              >
+                Sort by
+              </Button>
+            </Box>
+
+            {/* Resource Cards Stack */}
+            <Stack
+              spacing={2}
+              sx={{
                 width: '100%',
-                zIndex: 1
-              }
-            }}
-          >
-            <MapContainer
-              center={SEATTLE_CENTER}
-              zoom={13}
-              scrollWheelZoom={true}
+                '& .MuiCard-root': {
+                  maxWidth: '100% !important',
+                  mx: '0 !important',
+                  width: '100% !important',
+                  borderRadius: 3,
+                  border: `1px solid ${COLORS.secondary}`,
+                  boxShadow: '0px 4px 12px rgba(237, 156, 64, 0.08)',
+                  transition: 'transform 0.2s ease, box-shadow 0.2s ease',
+                  '&:hover': {
+                    transform: 'translateY(-3px)',
+                    boxShadow: '0px 8px 20px rgba(237, 156, 64, 0.18)',
+                  }
+                }
+              }}
             >
-              <TileLayer
-                attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
-                url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
-              />
-              {posts.map((post) => {
-                const { latitude, longitude } = post.location.coordinates;
-                return (
-                  <Marker
-                    key={post._id}
-                    position={[latitude, longitude]}
-                    icon={customMarkerIcon}
-                  >
-                    <Popup>
-                      <Typography variant="subtitle2" sx={{ fontWeight: 'bold', color: COLORS.primary }}>
-                        {post.title}
-                      </Typography>
-                      <Typography variant="body2" color="text.secondary">
-                        {post.location.address}, {post.location.city}
-                      </Typography>
-                      <Typography variant="caption" display="block" sx={{ mt: 1 }}>
-                        {post.description}
-                      </Typography>
-                    </Popup>
-                  </Marker>
-                );
-              })}
-            </MapContainer>
-          </Paper>
+              {posts.map((post) => (
+                <CRBPostCondensed key={post._id} post={post} />
+              ))}
+            </Stack>
+          </Grid>
+
+          {/* Right Side Column: Styled Interactive Map */}
+          <Grid size={{ xs: 12, md: 7, lg: 8 }}>
+            <Paper
+              elevation={0}
+              sx={{
+                height: 'calc(100vh - 120px)',
+                minHeight: '500px',
+                border: `2px solid ${COLORS.primary}`,
+                borderRadius: 4,
+                overflow: 'hidden',
+                boxShadow: '0px 6px 20px rgba(237, 156, 64, 0.12)',
+                position: 'sticky',
+                top: 80, // Offset for sticky navbar
+                '& .leaflet-container': {
+                  height: '100%',
+                  width: '100%',
+                  zIndex: 1
+                }
+              }}
+            >
+              <MapContainer
+                center={SEATTLE_CENTER}
+                zoom={13}
+                scrollWheelZoom={true}
+              >
+                <TileLayer
+                  attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+                  url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
+                />
+                {posts.map((post) => {
+                  const { latitude, longitude } = post.location.coordinates;
+                  return (
+                    <Marker
+                      key={post._id}
+                      position={[latitude, longitude]}
+                      icon={customMarkerIcon}
+                    >
+                      <Popup>
+                        <Typography variant="subtitle2" sx={{ fontWeight: 'bold', color: COLORS.primary }}>
+                          {post.title}
+                        </Typography>
+                        <Typography variant="body2" color="text.secondary">
+                          {post.location.address}, {post.location.city}
+                        </Typography>
+                        <Typography variant="caption" display="block" sx={{ mt: 1 }}>
+                          {post.description}
+                        </Typography>
+                      </Popup>
+                    </Marker>
+                  );
+                })}
+              </MapContainer>
+            </Paper>
+          </Grid>
         </Grid>
-      </Grid>
+      </Box>
 
       {/* Styled Filtering Options Modal */}
       <Modal
