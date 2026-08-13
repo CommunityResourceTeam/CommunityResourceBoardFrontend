@@ -272,7 +272,7 @@ function App(props) {
           </section>
 
           <nav className="explore-header" aria-label="Explore actions">
-            <Link to="/explore" className="explore-link">
+            <Link to="/explorePage" className="explore-link">
               Explore All <ArrowRight size={18} />
             </Link>
           </nav>
